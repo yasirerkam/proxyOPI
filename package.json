@@ -7,7 +7,12 @@
   "keywords": [
     "proxy",
     "api",
-    "free"
+    "free",
+    "proxyapi",
+    "proxies",
+    "proxylist",
+    "proxylistapi",
+    "proxylistfree"
   ],
   "author": "Yasir Erkam Özdemir",
   "license": "",
@@ -15,6 +20,7 @@
     "playwright": "^1.40.1"
   },
   "devDependencies": {
+    "@types/node": "^20.10.4",
     "typescript": "^5.3.3"
   }
 }
