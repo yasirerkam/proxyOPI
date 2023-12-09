@@ -1,7 +1,7 @@
 import path from 'path';
 import JsonFileOps from './src/jsonFileOps';
 
-export type Proxy = { ip: string, port: number, protocols: [string], anonymityLevel: string, lastTested: string, supportsHttps: boolean };
+export type Proxy = { ip: string, port: string, protocols: [string], anonymityLevel?: string, lastTested?: string, country?: string, city?: string, isp?: string, speed?: string, uptime?: string, responseTime?: string, verified?: string, };
 type ProxyList = { dateTime: number, list: [Proxy] };
 
 export default class ProxyOPI {
@@ -98,7 +98,7 @@ export default class ProxyOPI {
 
 
     static async getNewProxyList(): Promise<ProxyList> {
-        return undefined;
+        return { dateTime: Date.now(), list: [{ ip: "string", port: "string", protocols: ["string"] }] };
     }
 
     static printCurrentProxy() {
