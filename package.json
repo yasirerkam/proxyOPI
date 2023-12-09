@@ -1,0 +1,20 @@
+{
+  "name": "proxyopi",
+  "version": "1.0.0",
+  "description": "free proxy api",
+  "main": "index.ts",
+  "scripts": {},
+  "keywords": [
+    "proxy",
+    "api",
+    "free"
+  ],
+  "author": "Yasir Erkam Özdemir",
+  "license": "",
+  "dependencies": {
+    "playwright": "^1.40.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
