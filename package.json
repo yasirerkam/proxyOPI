@@ -1,6 +1,6 @@
 {
   "name": "proxyopi",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "free proxy api",
   "main": "index.ts",
   "scripts": {},
