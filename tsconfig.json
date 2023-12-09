@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "target": "ES2022", // Set the target ECMAScript version
+        "module": "NodeNext", // Specify module code generation
+        "outDir": "./dist", // Set the output directory for compiled files
+        "sourceMap": true, // Enable sourcemaps for debugging
+        "strict": true, // Enable strict type checking
+        "alwaysStrict": true, // Parse in strict mode and emit "use strict" for each source file
+        "esModuleInterop": true, // Enable interoperability between CommonJS and ES Modules via creation of namespace objects for all imports
+        "paths": {
+            "*": [
+                "./node_modules/*"
+            ] // Allow importing modules from the node_modules directory
+        }
+    },
+    "include": [
+        "./src/**/*.ts",
+        "./index.ts",
+        "./index.d.ts", // declaration file path
+    ], // Specify the files to include for compilation
+    "exclude": [
+        "./node_modules",
+        "./src/**/*.spec.ts"
+    ] // Specify the files to exclude from compilation (tests)
+}
