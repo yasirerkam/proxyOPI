@@ -7,8 +7,8 @@ type ProxyCPN = {
     local_id?: number,
     report_id?: string,
     addr: string,
-    type?: number,
-    kind?: number,
+    type?: number, // 1: http, 2: https, 4: socks5, 5: http/https, 7: ALL ACTIVE,
+    kind?: number, // 0: transparent, 2: anonymous, 3: ALL KINDS
     timeout?: number,
     cookie?: boolean,
     referer?: boolean,
@@ -61,7 +61,44 @@ export default class CheckerProxyNet implements ISource {
                 for (let i = 0; i < proxies.length; i++) {
                     const proxy = proxies[i];
                     const ipPort = proxy.addr?.split(":");
-                    proxyList.push({ ip: ipPort[0], port: ipPort[1], protocols: [proxy.type === 0 ? "https" : "http"], sourceSite: this.sourceName, anonymityLevel: proxy.kind === 0 ? "transparent" : "anonymous", country: proxy.addr_geo_iso, city: proxy.addr_geo_city, lastTested: proxy.updated_at });
+                    let types!: string[];
+                    switch (proxy.type) {
+                        case 1:
+                            types = ["http"];
+                            break;
+                        case 2:
+                            types = ["https"];
+                            break;
+                        case 4:
+                            types = ["socks5"];
+                            break;
+                        case 5:
+                            types = ["http", "https"];
+                            break;
+                        case 7:
+                            types = ["http", "https", "socks5"];
+                            break;
+                        default:
+                            types = [];
+                            break;
+                    }
+                    let kind!: string;
+                    switch (proxy.kind) {
+                        case 0:
+                            kind = "transparent";
+                            break;
+                        case 2:
+                            kind = "anonymous";
+                            break;
+                        case 3:
+                            kind = "anonymous";
+                            break;
+                        default:
+                            kind = "";
+                            break;
+                    }
+
+                    proxyList.push({ ip: ipPort[0], port: ipPort[1], protocols: types, sourceSite: this.sourceName, anonymityLevel: kind, country: proxy.addr_geo_iso, city: proxy.addr_geo_city, lastTested: proxy.updated_at });
                 }
             }
             else
