@@ -1,5 +1,5 @@
 import { Browser } from "playwright-core";
-import { Proxy } from "../../index";
+import { Proxy } from "../proxyProvider";
 import ISource from "./iSource";
 import PageProxyListOrg from "./pages/pageProxyListOrg";
 

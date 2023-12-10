@@ -3,7 +3,7 @@ import JsonFileOps from './jsonFileOps';
 import SourceManager from './sourceManager';
 
 export type Proxy = { ip: string, port: string, protocols: [string], anonymityLevel?: string, lastTested?: string, country?: string, city?: string, isp?: string, speed?: string, uptime?: string, responseTime?: string, verified?: string, };
-type ProxyList = { dateTime: number, list: Proxy[] };
+export type ProxyList = { dateTime: number, list: Proxy[] };
 
 export default class ProxyProvider {
 
