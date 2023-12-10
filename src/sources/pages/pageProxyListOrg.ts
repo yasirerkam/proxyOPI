@@ -6,7 +6,7 @@ export default class PageProxyListOrg {
     async getProxies() {
         const proxyList = [];
 
-        for (let i = 0; i < 14; i++) {
+        for (let i = 1; i < 15; i++) {
             const proxy = this.page.locator(`xpath=//div[@class='table-wrap']//ul[${i}]`);
 
             const proxyIpPort = (await proxy.locator(`xpath=//li[@class='proxy']`).innerText()).split(":");

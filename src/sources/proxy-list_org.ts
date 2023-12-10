@@ -6,20 +6,39 @@ import PageProxyListOrg from "./pages/pageProxyListOrg";
 export default class ProxyListOrg implements ISource {
 
     readonly url = "https://proxy-list.org/english/index.php";
+    readonly numberOfPages = 10;
 
     constructor(public browser: Browser) { }
 
     async getProxyList(): Promise<Proxy[]> {
+        const proxyList: Proxy[] = [];
+        let promises: Promise<void>[] = [];
+
+        for (let i = 1; i <= this.numberOfPages; i++) {
+            const promise = this.getProxyListFromPage(i).then(proxies => {
+                proxyList.push(...proxies);
+            }, err => {
+                console.error(err);
+            }).catch(err => {
+                console.error(err);
+            });
+
+            promises.push(promise);
+        }
+        await Promise.allSettled(promises);
+
+        return proxyList;
+    }
+
+    async getProxyListFromPage(pageNumber: number): Promise<Proxy[]> {
         const page = await this.browser.newPage();
 
-        await page.goto(this.url);
+        await page.goto(this.url + "?p=" + pageNumber);
         const pageProxyListOrg = new PageProxyListOrg(page);
         const proxies = await pageProxyListOrg.getProxies();
 
         const proxyList: Proxy[] = [];
         proxyList.push(...proxies);
-
-        await page.close();
 
         return proxyList;
     }
