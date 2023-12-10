@@ -9,6 +9,7 @@ export default class ProxyProvider {
 
     //#region properties
 
+    static sourceManager: SourceManager;
     static options: any;
     static timeout: number;
 
@@ -93,9 +94,13 @@ export default class ProxyProvider {
 
 
     static async getNewProxyList(): Promise<ProxyList> {
-        let sourceManager = await SourceManager.asyncConstruct();
-        const proxyList = { dateTime: Date.now(), list: await sourceManager.getProxyList() };
-        this.setProxyList(proxyList)
+        this.sourceManager = await SourceManager.asyncConstruct();
+        const proxyList = { dateTime: Date.now(), list: await this.sourceManager.getProxyList() };
+        this.setProxyList(proxyList);
+
+        if (this.sourceManager.browser.isConnected()) {
+            await this.sourceManager.browser.close();
+        }
 
         return proxyList;
     }

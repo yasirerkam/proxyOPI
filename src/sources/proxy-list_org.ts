@@ -40,6 +40,10 @@ export default class ProxyListOrg implements ISource {
         const proxyList: Proxy[] = [];
         proxyList.push(...proxies);
 
+        if (page.isClosed() === false) {
+            await page.close();
+        }
+
         return proxyList;
     }
 } 
