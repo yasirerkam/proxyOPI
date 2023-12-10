@@ -17,7 +17,7 @@ export default class PageProxyListOrg {
             const anonymityLevel: string = await proxy.locator(`xpath=//li[@class="type"]`).innerText();
             const protocol: string = await proxy.locator(`xpath=//li[@class='https']`).innerText();
 
-            proxyList.push({ ip, port, country, city, anonymityLevel, protocols: [protocol] as [string] });
+            proxyList.push({ ip, port, country, city, anonymityLevel, protocols: [protocol] as [string], sourceSite: "proxy-list.org" });
         }
 
         return proxyList;

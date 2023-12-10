@@ -2,12 +2,14 @@ import { chromium, Browser } from "playwright-core";
 import { Proxy } from "./proxyProvider";
 import ISource from "./sources/iSource";
 import ProxyListOrg from "./sources/proxy-list_org";
+import CheckerProxyNet from "./sources/checkerproxy_net";
 
 export default class SourceManager {
     sources!: ISource[];
 
     private constructor(public browser: Browser) {
         this.sources = [
+            new CheckerProxyNet(this.browser),
             new ProxyListOrg(this.browser),
         ];
     }

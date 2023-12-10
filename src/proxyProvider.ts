@@ -2,7 +2,7 @@ import path from 'path';
 import JsonFileOps from './jsonFileOps';
 import SourceManager from './sourceManager';
 
-export type Proxy = { ip: string, port: string, protocols: [string], anonymityLevel?: string, lastTested?: string, country?: string, city?: string, isp?: string, speed?: string, uptime?: string, responseTime?: string, verified?: string, };
+export type Proxy = { ip: string, port: string, protocols: [string], sourceSite: string, anonymityLevel?: string, lastTested?: string, country?: string, city?: string, isp?: string, speed?: string, uptime?: string, responseTime?: string, verified?: string, };
 export type ProxyList = { dateTime: number, list: Proxy[] };
 
 export default class ProxyProvider {
@@ -35,19 +35,19 @@ export default class ProxyProvider {
     static async getProxyList(): Promise<ProxyList> {
         if (this.proxyList === undefined || this.proxyList === null) {
             console.log("\nProxy list value is undefined or null.");
-            await this.getNewProxyList();
+            return await this.getNewProxyList();
         }
         else if (this.proxyList.dateTime === undefined || this.proxyList.dateTime === null) {
             console.log("\nProxy list dateTime value is undefined or null.");
-            await this.getNewProxyList();
+            return await this.getNewProxyList();
         }
         else if (this.proxyList.list === undefined || this.proxyList.list === null || this.proxyList.list.length === 0) {
             console.log("\nProxy list value is undefined, null or empty.");
-            await this.getNewProxyList();
+            return await this.getNewProxyList();
         }
         else if ((Date.now() - this.proxyList.dateTime) > this.timeout) {
             console.log("\nProxy list is expired.");
-            await this.getNewProxyList();
+            return await this.getNewProxyList();
         }
 
         return this.proxyList;
