@@ -46,8 +46,8 @@ export default class ProxyProvider {
             console.log("\nProxy list dateTime value is undefined or null.");
             await setNewProxyList();
         }
-        else if (this.proxyList.list === undefined || this.proxyList.list === null) {
-            console.log("\nProxy list value is undefined or null.");
+        else if (this.proxyList.list === undefined || this.proxyList.list === null || this.proxyList.list.length === 0) {
+            console.log("\nProxy list value is undefined, null or empty.");
             await setNewProxyList();
         }
         else if ((Date.now() - this.proxyList.dateTime) > this.timeout) {
