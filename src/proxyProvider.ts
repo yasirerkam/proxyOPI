@@ -32,27 +32,21 @@ export default class ProxyProvider {
             this.writeProxyListObjFile();
     }
     static async getProxyList(): Promise<ProxyList> {
-        const setNewProxyList = async () => {
-            await this.getNewProxyList().then(proxyList => {
-                this.setProxyList(proxyList)
-            });
-        }
-
         if (this.proxyList === undefined || this.proxyList === null) {
             console.log("\nProxy list value is undefined or null.");
-            await setNewProxyList();
+            await this.getNewProxyList();
         }
         else if (this.proxyList.dateTime === undefined || this.proxyList.dateTime === null) {
             console.log("\nProxy list dateTime value is undefined or null.");
-            await setNewProxyList();
+            await this.getNewProxyList();
         }
         else if (this.proxyList.list === undefined || this.proxyList.list === null || this.proxyList.list.length === 0) {
             console.log("\nProxy list value is undefined, null or empty.");
-            await setNewProxyList();
+            await this.getNewProxyList();
         }
         else if ((Date.now() - this.proxyList.dateTime) > this.timeout) {
             console.log("\nProxy list is expired.");
-            await setNewProxyList();
+            await this.getNewProxyList();
         }
 
         return this.proxyList;
@@ -100,7 +94,10 @@ export default class ProxyProvider {
 
     static async getNewProxyList(): Promise<ProxyList> {
         let sourceManager = await SourceManager.asyncConstruct();
-        return { dateTime: Date.now(), list: await sourceManager.getProxyList() };
+        const proxyList = { dateTime: Date.now(), list: await sourceManager.getProxyList() };
+        this.setProxyList(proxyList)
+
+        return proxyList;
     }
 
     static printCurrentProxy() {
@@ -114,24 +111,17 @@ export default class ProxyProvider {
     private static async readProxyListObjFile(): Promise<void> {
         try {
             if (!JsonFileOps.isFileExists(this.pathProxyList))
-                await this.getNewProxyList().then(proxyList => {
-                    this.setProxyList(proxyList)
-                });
+                await this.getNewProxyList();
 
             const proxyList = JsonFileOps.readJson(this.pathProxyList);
-            if (proxyList === undefined || proxyList === null || proxyList.dateTime === undefined || proxyList.dateTime === null || proxyList.list === undefined || proxyList.list === null || proxyList.list.length === 0) {
-                await this.getNewProxyList().then(proxyList => {
-                    this.setProxyList(proxyList)
-                });
-            }
+            if (proxyList === undefined || proxyList === null || proxyList.dateTime === undefined || proxyList.dateTime === null || proxyList.list === undefined || proxyList.list === null || proxyList.list.length === 0)
+                await this.getNewProxyList();
             else
                 this.setProxyList(proxyList, false);
         }
         catch (error) {
             console.log("\nError occured while reading proxy list:\n", error);
-            await this.getNewProxyList().then(proxyList => {
-                this.setProxyList(proxyList)
-            });
+            await this.getNewProxyList();
         }
     }
 
