@@ -2,6 +2,8 @@ import path from 'path';
 import JsonFileOps from './jsonFileOps';
 import SourceManager from './sourceManager';
 
+export const enum AnonymityLevel { transparent = "transparent", anonymous = "anonymous", elite = "elite" }
+export const enum Protocol { http = "http", https = "https", socks4 = "socks4", socks5 = "socks5" }
 export type Proxy = { ip: string, port: string, protocols: string[], sourceSite: string, anonymityLevel?: string, lastTested?: string, country?: string, city?: string, isp?: string, speed?: string, uptime?: string, responseTime?: string, verified?: string, };
 export type ProxyList = { dateTime: number, list: Proxy[] };
 

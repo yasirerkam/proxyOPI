@@ -1,8 +1,8 @@
 import { Browser } from "playwright-core";
-import { Proxy } from "../proxyProvider";
+import { Proxy, AnonymityLevel, Protocol } from "../proxyProvider";
 import ISource from "./iSource";
 
-type ProxyCPN = {
+type ProxyCheckerPN = {
     id?: number,
     local_id?: number,
     report_id?: string,
@@ -41,14 +41,13 @@ export default class CheckerProxyNet implements ISource {
         const page = await this.browser.newPage();
         page.setDefaultNavigationTimeout(90000);
 
-        await page.goto(this.url);
+        // await page.goto(this.url);
         await page.request.get(this.url, {
             headers: {
                 "accept": "*/*",
                 "accept-language": "en,en-US;q=0.9,tr-TR;q=0.8,tr;q=0.7",
                 "cache-control": "no-cache",
                 "pragma": "no-cache",
-                "sec-ch-ua": "\"Chromium\";v=\"118\", \"Google Chrome\";v=\"118\", \"Not=A?Brand\";v=\"99\"",
                 "sec-fetch-dest": "empty",
                 "sec-fetch-mode": "cors",
                 "sec-fetch-site": "same-origin",
@@ -57,26 +56,26 @@ export default class CheckerProxyNet implements ISource {
             }
         }).then(async response => {
             if (response.status() === 200) {
-                const proxies: ProxyCPN[] = await response.json();
+                const proxies: ProxyCheckerPN[] = await response.json();
                 for (let i = 0; i < proxies.length; i++) {
                     const proxy = proxies[i];
                     const ipPort = proxy.addr?.split(":");
                     let types!: string[];
                     switch (proxy.type) {
                         case 1:
-                            types = ["http"];
+                            types = [Protocol.http];
                             break;
                         case 2:
-                            types = ["https"];
+                            types = [Protocol.https];
                             break;
                         case 4:
-                            types = ["socks5"];
+                            types = [Protocol.socks5];
                             break;
                         case 5:
-                            types = ["http", "https"];
+                            types = [Protocol.http, Protocol.https];
                             break;
                         case 7:
-                            types = ["http", "https", "socks5"];
+                            types = [Protocol.http, Protocol.https, Protocol.socks5];
                             break;
                         default:
                             types = [];
@@ -85,20 +84,20 @@ export default class CheckerProxyNet implements ISource {
                     let kind!: string;
                     switch (proxy.kind) {
                         case 0:
-                            kind = "transparent";
+                            kind = AnonymityLevel.transparent;
                             break;
                         case 2:
-                            kind = "anonymous";
+                            kind = AnonymityLevel.anonymous;
                             break;
                         case 3:
-                            kind = "anonymous";
+                            kind = AnonymityLevel.anonymous;
                             break;
                         default:
                             kind = "";
                             break;
                     }
 
-                    proxyList.push({ ip: ipPort[0], port: ipPort[1], protocols: types, sourceSite: this.sourceName, anonymityLevel: kind, country: proxy.addr_geo_iso, city: proxy.addr_geo_city, lastTested: proxy.updated_at });
+                    proxyList.push({ ip: ipPort[0], port: ipPort[1], protocols: types, sourceSite: this.sourceName, anonymityLevel: kind, country: proxy.addr_geo_iso, city: proxy.addr_geo_city, lastTested: proxy.updated_at }); // check this later whether equivalent
                 }
             }
             else
@@ -108,6 +107,9 @@ export default class CheckerProxyNet implements ISource {
         }).catch(err => {
             console.error(err);
         });
+
+        // if (page.isClosed() === false)
+        //     await page.close();
 
         return proxyList;
     }
