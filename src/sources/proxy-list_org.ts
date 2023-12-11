@@ -37,10 +37,7 @@ export default class ProxyListOrg implements ISource {
 
         await page.goto(this.url + "?p=" + pageNumber);
         const pageProxyListOrg = new PageProxyListOrg(page);
-        const proxies = await pageProxyListOrg.getProxies();
-
-        const proxyList: Proxy[] = [];
-        proxyList.push(...proxies);
+        const proxyList: Proxy[] = await pageProxyListOrg.getProxies();
 
         // if (page.isClosed() === false)
         //     await page.close();

@@ -4,12 +4,14 @@ import ISource from "./sources/iSource";
 import ProxyListOrg from "./sources/proxy-list_org";
 import CheckerProxyNet from "./sources/checkerproxy_net";
 import CoolProxyNet from "./sources/cool-proxy_net";
+import FreeProxyCz from "./sources/free-proxy_cz";
 
 export default class SourceManager {
     sources!: ISource[];
 
     private constructor(public browser: Browser) {
         this.sources = [
+            new FreeProxyCz(this.browser),
             new CoolProxyNet(this.browser),
             new CheckerProxyNet(this.browser),
             new ProxyListOrg(this.browser),
