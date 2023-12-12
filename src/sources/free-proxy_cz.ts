@@ -53,6 +53,7 @@ export default class FreeProxyCz implements ISource {
         const pageFreeProxyCz = new PageFreeProxyCz(page);
         const proxyList: Proxy[] = await pageFreeProxyCz.getProxies(protocol, anonimityLevel);
 
+        // problem on promise
         // if (page.isClosed() === false)
         //     await page.close();
 

@@ -58,6 +58,7 @@ export default class CoolProxyNet implements ISource {
             console.error(err);
         });
 
+        // problem on promise
         // if (page.isClosed() === false)
         //     await page.close();
 
