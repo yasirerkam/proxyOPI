@@ -30,7 +30,7 @@ export default class ProxyProvider {
     static setProxyList(value: ProxyList, save: boolean = true) {
         this.proxyList = value;
         this.proxyList.list = this.shuffle(this.proxyList.list);
-        console.log("\nProxy list is set.");
+        console.log("\nProxy list is set. Number of proxies: %d.", this.proxyList.list.length);
         if (save)
             this.writeProxyListObjFile();
     }

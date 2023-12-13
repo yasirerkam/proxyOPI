@@ -31,14 +31,14 @@ export default class CheckerProxyNet implements ISource {
     url: string = "";
     readonly sourceName: string = "checkerproxy.net";
 
-    constructor(public browser: Browser) {
+    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) {
         this.url = "https://checkerproxy.net/api/archive/" + new Date().toJSON().slice(0, 10);
     }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
 
-        const page = await this.browser.newPage();
+        const page = await this.browser.newPage(this.pageOptions);
         page.setDefaultNavigationTimeout(90000);
 
         // await page.goto(this.url);

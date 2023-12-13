@@ -24,11 +24,11 @@ export default class JsonFileOps {
         } catch (error: any) {
             if (error.code === 'ENOENT') {
                 console.log("'%s' is not found. Create it first!", pathParsed.base);
-                return;
+                return undefined;
             }
 
             console.log("An error occurred while reading '%s':\n", pathParsed.base, error);
-            return;
+            return undefined;
         }
 
         return obj;

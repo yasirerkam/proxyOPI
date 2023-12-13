@@ -9,7 +9,7 @@ export default class ProxyListOrg implements ISource {
     readonly sourceName = "proxy-list.org";
     readonly numberOfPages = 10;
 
-    constructor(public browser: Browser) { }
+    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
@@ -32,13 +32,14 @@ export default class ProxyListOrg implements ISource {
     }
 
     async getProxyListFromPage(pageNumber: number): Promise<Proxy[]> {
-        const page = await this.browser.newPage();
+        const page = await this.browser.newPage(this.pageOptions);
         page.setDefaultNavigationTimeout(90000);
 
         await page.goto(this.url + "?p=" + pageNumber);
         const pageProxyListOrg = new PageProxyListOrg(page);
         const proxyList: Proxy[] = await pageProxyListOrg.getProxies();
 
+        // problem on promise
         // if (page.isClosed() === false)
         //     await page.close();
 
