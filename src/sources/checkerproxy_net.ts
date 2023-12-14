@@ -39,7 +39,7 @@ export default class CheckerProxyNet implements ISource {
         const proxyList: Proxy[] = [];
 
         const page = await this.browser.newPage(this.pageOptions);
-        page.setDefaultNavigationTimeout(90000);
+        page.setDefaultNavigationTimeout(30000);
 
         // await page.goto(this.url);
         await page.request.get(this.url, {

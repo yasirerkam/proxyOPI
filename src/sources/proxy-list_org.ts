@@ -33,7 +33,7 @@ export default class ProxyListOrg implements ISource {
 
     async getProxyListFromPage(pageNumber: number): Promise<Proxy[]> {
         const page = await this.browser.newPage(this.pageOptions);
-        page.setDefaultNavigationTimeout(90000);
+        page.setDefaultNavigationTimeout(30000);
 
         await page.goto(this.url + "?p=" + pageNumber);
         const pageProxyListOrg = new PageProxyListOrg(page);
