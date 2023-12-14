@@ -6,7 +6,7 @@ import PageFreeProxyCz from "./pages/pageFreeProxyCz";
 export default class FreeProxyCz implements Source {
 
     url = "";
-    readonly sourceName = "free-proxy.cz";
+    readonly sourceSite = "free-proxy.cz";
     readonly numberOfPages = 5;
 
     constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
@@ -44,10 +44,9 @@ export default class FreeProxyCz implements Source {
 
     async getProxyListFromPage(url: string, protocol: string, anonimityLevel: string): Promise<Proxy[]> {
         const page = await this.browser.newPage(this.pageOptions);
-        page.setDefaultNavigationTimeout(30000);
 
         await page.goto(url);
-        const pageFreeProxyCz = new PageFreeProxyCz(page);
+        const pageFreeProxyCz = new PageFreeProxyCz(page, this.sourceSite);
         const proxyList: Proxy[] = await pageFreeProxyCz.getProxies(protocol, anonimityLevel);
 
         // problem on promise

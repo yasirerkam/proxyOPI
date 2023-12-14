@@ -2,14 +2,13 @@ import { Page } from "playwright-core";
 import { Proxy } from "../../proxyProvider";
 
 export default class PageProxyListOrg {
-    constructor(public page: Page) { }
+    constructor(private page: Page, private sourceSite: string) { }
 
     async getProxies() {
         const proxyList = [];
 
-        for (let i = 1; i < 15; i++) {
-            const proxyRow = this.page.locator(`xpath=//div[@class='table-wrap']//ul[${i}]`);
-
+        const proxyRows = await this.page.locator(`xpath=//div[@class='table-wrap']//ul`).all();
+        for (const proxyRow of proxyRows) {
             const proxyIpPort = (await proxyRow.locator(`xpath=//li[@class='proxy']`).innerText()).split(":");
             const ip: string = proxyIpPort[0];
             const port: string = proxyIpPort[1];
@@ -18,7 +17,7 @@ export default class PageProxyListOrg {
             const anonymityLevel: string = await proxyRow.locator(`xpath=//li[@class="type"]`).innerText();
             const protocol: string = await proxyRow.locator(`xpath=//li[@class='https']`).innerText();
 
-            const proxy: Proxy = { ip: ip, port: port, country: country, city: city, anonymityLevel: anonymityLevel, protocols: [protocol], sourceSite: "proxy-list.org" };
+            const proxy: Proxy = { ip: ip, port: port, country: country, city: city, anonymityLevel: anonymityLevel, protocols: [protocol], sourceSite: this.sourceSite };
             proxyList.push(proxy);
         }
 

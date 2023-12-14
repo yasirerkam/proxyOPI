@@ -12,8 +12,7 @@ export default class FreeProxyListNet implements ISource {
         'https://www.sslproxies.org/',
         'https://free-proxy-list.net/anonymous-proxy.html',
     ];
-    readonly sourceName = "proxy-list.org";
-    readonly numberOfPages = 10;
+    readonly sourceSite = "proxy-list.org";
 
     constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
 
@@ -39,10 +38,9 @@ export default class FreeProxyListNet implements ISource {
 
     async getProxyListFromURLs(url: string): Promise<Proxy[]> {
         const page = await this.browser.newPage(this.pageOptions);
-        page.setDefaultNavigationTimeout(30000);
 
         await page.goto(url);
-        const pageProxyListOrg = new PageFreeProxyListNet(page);
+        const pageProxyListOrg = new PageFreeProxyListNet(page, this.sourceSite);
         const proxyList: Proxy[] = await pageProxyListOrg.getProxies();
 
         // problem on promise

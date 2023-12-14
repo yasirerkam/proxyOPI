@@ -2,7 +2,7 @@ import { Page } from "playwright-core";
 import { Proxy } from "../../proxyProvider";
 
 export default class PageFreeProxyListNet {
-    constructor(public page: Page) { }
+    constructor(private page: Page, private sourceSite: string) { }
 
     async getProxies() {
         const proxyList = [];
@@ -16,7 +16,7 @@ export default class PageFreeProxyListNet {
             const protocol: string = await proxyRow.locator(`/td[7]`).innerText();
             const lastCheked: string = await proxyRow.locator(`/td[8]`).innerText();
 
-            const proxy: Proxy = { ip: ip, port: port, country: country, anonymityLevel: anonymityLevel, protocols: [protocol], sourceSite: "free-proxy-list.net", lastTested: lastCheked };
+            const proxy: Proxy = { ip: ip, port: port, country: country, anonymityLevel: anonymityLevel, protocols: [protocol], sourceSite: this.sourceSite, lastTested: lastCheked };
             proxyList.push(proxy);
         }
 

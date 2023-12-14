@@ -7,6 +7,7 @@ import CoolProxyNet from "./sources/cool-proxy_net";
 import FreeProxyCz from "./sources/free-proxy_cz";
 import FreeProxyListNet from "./sources/free-proxy-list_net";
 import JsonFileOps from './jsonFileOps';
+import MyProxyCom from "./sources/my-proxy_com";
 
 export default class SourceManager {
     sources: ISource[];
@@ -21,11 +22,12 @@ export default class SourceManager {
         }
 
         this.sources = [
-            new FreeProxyListNet(this.browser, this.pageOptions),
-            new FreeProxyCz(this.browser, this.pageOptions),
-            new CoolProxyNet(this.browser, this.pageOptions),
-            new CheckerProxyNet(this.browser, this.pageOptions),
-            new ProxyListOrg(this.browser, this.pageOptions),
+            new MyProxyCom(this.browser, this.pageOptions),
+            // new FreeProxyListNet(this.browser, this.pageOptions),
+            // new FreeProxyCz(this.browser, this.pageOptions),
+            // new CoolProxyNet(this.browser, this.pageOptions),
+            // new CheckerProxyNet(this.browser, this.pageOptions),
+            // new ProxyListOrg(this.browser, this.pageOptions),
         ];
     }
 
