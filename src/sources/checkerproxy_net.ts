@@ -60,42 +60,8 @@ export default class CheckerProxyNet implements ISource {
                 for (let i = 0; i < proxies.length; i++) {
                     const proxy = proxies[i];
                     const ipPort = proxy.addr?.split(":");
-                    let types!: Protocol[];
-                    switch (proxy.type) {
-                        case 1:
-                            types = [Protocol.http];
-                            break;
-                        case 2:
-                            types = [Protocol.https];
-                            break;
-                        case 4:
-                            types = [Protocol.socks5];
-                            break;
-                        case 5:
-                            types = [Protocol.http, Protocol.https];
-                            break;
-                        case 7:
-                            types = [Protocol.http, Protocol.https, Protocol.socks5];
-                            break;
-                        default:
-                            types = [Protocol.unknown];
-                            break;
-                    }
-                    let kind!: AnonymityLevel;
-                    switch (proxy.kind) {
-                        case 0:
-                            kind = AnonymityLevel.transparent;
-                            break;
-                        case 2:
-                            kind = AnonymityLevel.anonymous;
-                            break;
-                        case 3:
-                            kind = AnonymityLevel.anonymous;
-                            break;
-                        default:
-                            kind = AnonymityLevel.unknown;
-                            break;
-                    }
+                    let types: Protocol[] = this.transformProtocol(proxy.type ?? 0);
+                    let kind: AnonymityLevel = this.transformAnonymityLevel(proxy.kind ?? 0);
 
                     proxyList.push({ ip: ipPort[0], port: ipPort[1], protocols: types, sourceSite: this.sourceSite, anonymityLevel: kind, country: proxy.addr_geo_iso, city: proxy.addr_geo_city, lastTested: proxy.updated_at }); // check this later whether equivalent
                 }
@@ -111,5 +77,35 @@ export default class CheckerProxyNet implements ISource {
         await context.close();
 
         return proxyList;
+    }
+
+    transformProtocol(type: number): Protocol[] {
+        switch (type) {
+            case 1:
+                return [Protocol.http];
+            case 2:
+                return [Protocol.https];
+            case 4:
+                return [Protocol.socks5];
+            case 5:
+                return [Protocol.http, Protocol.https];
+            case 7:
+                return [Protocol.http, Protocol.https, Protocol.socks5];
+            default:
+                return [Protocol.unknown];
+        }
+    }
+
+    transformAnonymityLevel(kind: number): AnonymityLevel {
+        switch (kind) {
+            case 0:
+                return AnonymityLevel.transparent;
+            case 2:
+                return AnonymityLevel.anonymous;
+            case 3:
+                return AnonymityLevel.anonymous;
+            default:
+                return AnonymityLevel.unknown;
+        }
     }
 }
