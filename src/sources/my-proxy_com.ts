@@ -47,7 +47,7 @@ export default class MyProxyCom implements ISource {
     }
 
     async getProxyListFromURLs(url: string[]): Promise<Proxy[]> {
-        const context = await this.browser.newContext(this.pageOptions);
+        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
         const page = await context.newPage();
 
         await page.goto(url[0]);

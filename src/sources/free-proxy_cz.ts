@@ -43,7 +43,7 @@ export default class FreeProxyCz implements Source {
     }
 
     async getProxyListFromPage(url: string, protocol: Protocol, anonimityLevel: AnonymityLevel): Promise<Proxy[]> {
-        const context = await this.browser.newContext(this.pageOptions);
+        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
         const page = await context.newPage();
 
         await page.goto(url);

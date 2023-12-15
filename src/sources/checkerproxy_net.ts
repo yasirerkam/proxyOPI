@@ -38,7 +38,7 @@ export default class CheckerProxyNet implements ISource {
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
 
-        const context = await this.browser.newContext(this.pageOptions);
+        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
         const page = await context.newPage();
 
         // await page.goto(this.url);
