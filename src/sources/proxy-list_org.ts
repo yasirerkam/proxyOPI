@@ -32,15 +32,14 @@ export default class ProxyListOrg implements ISource {
     }
 
     async getProxyListFromPage(pageNumber: number): Promise<Proxy[]> {
-        const page = await this.browser.newPage(this.pageOptions);
+        const context = await this.browser.newContext(this.pageOptions);
+        const page = await context.newPage();
 
         await page.goto(this.url + "?p=" + pageNumber);
         const pageProxyListOrg = new PageProxyListOrg(page, this.sourceSite);
         const proxyList: Proxy[] = await pageProxyListOrg.getProxies();
 
-        // problem on promise
-        // if (page.isClosed() === false)
-        //     await page.close();
+        await context.close();
 
         return proxyList;
     }

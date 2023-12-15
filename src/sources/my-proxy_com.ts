@@ -47,15 +47,14 @@ export default class MyProxyCom implements ISource {
     }
 
     async getProxyListFromURLs(url: string[]): Promise<Proxy[]> {
-        const page = await this.browser.newPage(this.pageOptions);
+        const context = await this.browser.newContext(this.pageOptions);
+        const page = await context.newPage();
 
         await page.goto(url[0]);
         const pageProxyListOrg = new PageMyProxyCom(page, this.sourceSite);
         const proxyList: Proxy[] = await pageProxyListOrg.getProxies(url[1] as Protocol, url[2] as AnonymityLevel);
 
-        // problem on promise
-        // if (page.isClosed() === false)
-        //     await page.close();
+        await context.close();
 
         return proxyList;
     }

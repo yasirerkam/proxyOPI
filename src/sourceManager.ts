@@ -34,7 +34,7 @@ export default class SourceManager {
     }
 
     static async asyncConstruct() {
-        const browser: Browser = await chromium.launch();
+        const browser = await chromium.launch();
         return new SourceManager(browser);
     }
 

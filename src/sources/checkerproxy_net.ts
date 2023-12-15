@@ -38,7 +38,8 @@ export default class CheckerProxyNet implements ISource {
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
 
-        const page = await this.browser.newPage(this.pageOptions);
+        const context = await this.browser.newContext(this.pageOptions);
+        const page = await context.newPage();
 
         // await page.goto(this.url);
         await page.request.get(this.url, {
@@ -107,9 +108,7 @@ export default class CheckerProxyNet implements ISource {
             console.error(err);
         });
 
-        // problem on promise
-        // if (page.isClosed() === false)
-        //     await page.close();
+        await context.close();
 
         return proxyList;
     }

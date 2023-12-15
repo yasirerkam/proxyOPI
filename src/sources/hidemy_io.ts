@@ -28,16 +28,15 @@ export default class HideMyIo implements ISource {
     }
 
     async getProxyListFromPage(startNumber: number): Promise<Proxy[]> {
-        const page = await this.browser.newPage(this.pageOptions);
+        const context = await this.browser.newContext(this.pageOptions);
+        const page = await context.newPage();
 
-        let url = `https://hidemy.io/en/proxy-list/?start=${startNumber}#list`;
-        await page.goto(url);
+        let url = `https://hidemy.io/en/proxy-list/?start=${startNumber * 64}#list`;
+        await page.goto(url, { waitUntil: "networkidle", timeout: 90000 });
         const pageProxyListOrg = new PageHideMyIo(page, this.sourceSite);
         const proxyList: Proxy[] = await pageProxyListOrg.getProxies();
 
-        // problem on promise
-        // if (page.isClosed() === false)
-        //     await page.close();
+        await context.close();
 
         return proxyList;
     }
