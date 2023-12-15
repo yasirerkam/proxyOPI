@@ -21,7 +21,9 @@ async function test() {
     // console.log("\nProxy list is:\n", proxyList);
 }
 
-test().catch(err => {
-    console.error(err);
-});
+(async () => {
+    await test().catch(err => {
+        console.error(err);
+    });
+})();
 

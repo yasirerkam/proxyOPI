@@ -59,7 +59,7 @@ export default class CheckerProxyNet implements ISource {
                 for (let i = 0; i < proxies.length; i++) {
                     const proxy = proxies[i];
                     const ipPort = proxy.addr?.split(":");
-                    let types!: string[];
+                    let types!: Protocol[];
                     switch (proxy.type) {
                         case 1:
                             types = [Protocol.http];
@@ -77,10 +77,10 @@ export default class CheckerProxyNet implements ISource {
                             types = [Protocol.http, Protocol.https, Protocol.socks5];
                             break;
                         default:
-                            types = [];
+                            types = [Protocol.unknown];
                             break;
                     }
-                    let kind!: string;
+                    let kind!: AnonymityLevel;
                     switch (proxy.kind) {
                         case 0:
                             kind = AnonymityLevel.transparent;
@@ -92,7 +92,7 @@ export default class CheckerProxyNet implements ISource {
                             kind = AnonymityLevel.anonymous;
                             break;
                         default:
-                            kind = "";
+                            kind = AnonymityLevel.unknown;
                             break;
                     }
 

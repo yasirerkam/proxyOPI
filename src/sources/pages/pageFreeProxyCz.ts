@@ -1,10 +1,10 @@
 import { Page } from "playwright-core";
-import { Proxy } from "../../proxyProvider";
+import { Proxy, Protocol, AnonymityLevel } from "../../proxyProvider";
 
 export default class pageFreeProxyCz {
     constructor(private page: Page, private sourceSite: string) { }
 
-    async getProxies(protocol: string, anonimityLevel: string): Promise<Proxy[]> {
+    async getProxies(protocol: Protocol, anonimityLevel: AnonymityLevel): Promise<Proxy[]> {
         const proxyList = [];
 
         const proxyRows = await this.page.locator(`xpath=//table[@id='proxy_list']/tbody/tr`).all();

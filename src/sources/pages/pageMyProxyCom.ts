@@ -1,10 +1,10 @@
 import { Page } from "playwright-core";
-import { Proxy } from "../../proxyProvider";
+import { Proxy, Protocol, AnonymityLevel } from "../../proxyProvider";
 
 export default class PageMyProxyCom {
     constructor(private page: Page, private sourceSite: string) { }
 
-    async getProxies(protocol: string, anonimityLevel?: string): Promise<Proxy[]> {
+    async getProxies(protocol: Protocol, anonimityLevel?: AnonymityLevel): Promise<Proxy[]> {
         const proxyList = [];
 
         const proxies = (await this.page.locator(`//div[@class='list']`).innerText()).match(/((\d{1,3}\.){3}\d{1,3})\:(\d{1,4})(#([a-zA-Z]{1,4}))?/gm);

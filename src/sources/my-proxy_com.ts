@@ -9,18 +9,18 @@ export default class MyProxyCom implements ISource {
         ["https://www.my-proxy.com/free-elite-proxy.html", Protocol.http, AnonymityLevel.elite],
         ["https://www.my-proxy.com/free-anonymous-proxy.html", Protocol.http, AnonymityLevel.anonymous],
         ["https://www.my-proxy.com/free-transparent-proxy.html", Protocol.http, AnonymityLevel.transparent],
-        ["https://www.my-proxy.com/free-socks-4-proxy.html", Protocol.socks4, ""],
-        ["https://www.my-proxy.com/free-socks-5-proxy.html", Protocol.socks5, ""],
-        ["https://www.my-proxy.com/free-proxy-list.html", Protocol.http, ""],
-        ["https://www.my-proxy.com/free-proxy-list-2.html", Protocol.http, ""],
-        ["https://www.my-proxy.com/free-proxy-list-3.html", Protocol.http, ""],
-        ["https://www.my-proxy.com/free-proxy-list-4.html", Protocol.http, ""],
-        ["https://www.my-proxy.com/free-proxy-list-5.html", Protocol.http, ""],
-        ["https://www.my-proxy.com/free-proxy-list-6.html", Protocol.http, ""],
-        ["https://www.my-proxy.com/free-proxy-list-7.html", Protocol.http, ""],
-        ["https://www.my-proxy.com/free-proxy-list-8.html", Protocol.http, ""],
-        ["https://www.my-proxy.com/free-proxy-list-9.html", Protocol.http, ""],
-        ["https://www.my-proxy.com/free-proxy-list-10.html", Protocol.http, ""],
+        ["https://www.my-proxy.com/free-socks-4-proxy.html", Protocol.socks4, AnonymityLevel.unknown],
+        ["https://www.my-proxy.com/free-socks-5-proxy.html", Protocol.socks5, AnonymityLevel.unknown],
+        ["https://www.my-proxy.com/free-proxy-list.html", Protocol.http, AnonymityLevel.unknown],
+        ["https://www.my-proxy.com/free-proxy-list-2.html", Protocol.http, AnonymityLevel.unknown],
+        ["https://www.my-proxy.com/free-proxy-list-3.html", Protocol.http, AnonymityLevel.unknown],
+        ["https://www.my-proxy.com/free-proxy-list-4.html", Protocol.http, AnonymityLevel.unknown],
+        ["https://www.my-proxy.com/free-proxy-list-5.html", Protocol.http, AnonymityLevel.unknown],
+        ["https://www.my-proxy.com/free-proxy-list-6.html", Protocol.http, AnonymityLevel.unknown],
+        ["https://www.my-proxy.com/free-proxy-list-7.html", Protocol.http, AnonymityLevel.unknown],
+        ["https://www.my-proxy.com/free-proxy-list-8.html", Protocol.http, AnonymityLevel.unknown],
+        ["https://www.my-proxy.com/free-proxy-list-9.html", Protocol.http, AnonymityLevel.unknown],
+        ["https://www.my-proxy.com/free-proxy-list-10.html", Protocol.http, AnonymityLevel.unknown],
     ];
     readonly sourceSite = "my-proxy.com";
 
@@ -51,7 +51,7 @@ export default class MyProxyCom implements ISource {
 
         await page.goto(url[0]);
         const pageProxyListOrg = new PageMyProxyCom(page, this.sourceSite);
-        const proxyList: Proxy[] = await pageProxyListOrg.getProxies(url[1], url[2]);
+        const proxyList: Proxy[] = await pageProxyListOrg.getProxies(url[1] as Protocol, url[2] as AnonymityLevel);
 
         // problem on promise
         // if (page.isClosed() === false)

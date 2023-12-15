@@ -42,7 +42,7 @@ export default class FreeProxyCz implements Source {
         return proxyList;
     }
 
-    async getProxyListFromPage(url: string, protocol: string, anonimityLevel: string): Promise<Proxy[]> {
+    async getProxyListFromPage(url: string, protocol: Protocol, anonimityLevel: AnonymityLevel): Promise<Proxy[]> {
         const page = await this.browser.newPage(this.pageOptions);
 
         await page.goto(url);
