@@ -96,15 +96,19 @@ export default class ProxyProvider {
 
 
     static async getNewProxyList(): Promise<ProxyList> {
-        this.sourceManager = await SourceManager.asyncConstruct();
-        const proxyList = { dateTime: Date.now(), list: await this.sourceManager.getProxyList() };
-        this.setProxyList(proxyList);
+        return await SourceManager.asyncConstruct().then(async sourceManager => {
+            this.sourceManager = sourceManager;
+            return await this.sourceManager.getProxyList().then(async list => {
+                const proxyList = { "dateTime": Date.now(), "list": list };
+                this.setProxyList(proxyList);
 
-        if (this.sourceManager.browser.isConnected()) {
-            await this.sourceManager.browser.close();
-        }
+                if (this.sourceManager.browser.isConnected()) {
+                    await this.sourceManager.browser.close();
+                }
 
-        return proxyList;
+                return proxyList;
+            });
+        });
     }
 
     static printCurrentProxy() {

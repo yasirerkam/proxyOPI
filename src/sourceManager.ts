@@ -1,4 +1,6 @@
-import { chromium, Browser } from "playwright-core";
+import { chromium } from "playwright-extra";
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
+import { Browser } from "playwright-core";
 import { Proxy } from "./proxyProvider";
 import ISource from "./sources/iSource";
 import ProxyListOrg from "./sources/proxy-list_org";
@@ -34,8 +36,10 @@ export default class SourceManager {
     }
 
     static async asyncConstruct() {
-        const browser = await chromium.launch();
-        return new SourceManager(browser);
+        chromium.use(StealthPlugin());
+        return await chromium.launch({ headless: true }).then(browser => {
+            return new SourceManager(browser);
+        });
     }
 
     async getProxyList(): Promise<Proxy[]> {
