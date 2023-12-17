@@ -137,3 +137,4 @@ CODE_OF_CONDUCT.md
 /blob-report/
 /playwright/.cache/
 /data/pageOptions.json
+data/screenshots/*

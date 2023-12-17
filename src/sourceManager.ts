@@ -10,9 +10,11 @@ import JsonFileOps from './jsonFileOps';
 import MyProxyCom from "./sources/my-proxy_com";
 import HideMyIo from "./sources/hidemy_io";
 
+export type PageOptions = { "User-Agent": string };
+
 export default class SourceManager {
     sources: ISource[];
-    pageOptions: {} | undefined = undefined;
+    pageOptions?: PageOptions;
 
     private constructor(public browser: Browser) {
         try {
@@ -23,7 +25,7 @@ export default class SourceManager {
         }
 
         this.sources = [
-            new HideMyIo(this.browser, this.pageOptions),
+            new HideMyIo(this.browser, this.pageOptions), // TODO: will fix cloudflare
             // new MyProxyCom(this.browser, this.pageOptions),
             // new FreeProxyListNet(this.browser, this.pageOptions),
             // new FreeProxyCz(this.browser, this.pageOptions),

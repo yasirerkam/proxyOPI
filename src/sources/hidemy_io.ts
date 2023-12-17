@@ -2,13 +2,14 @@ import { Browser } from "playwright-core";
 import { Proxy } from "../proxyProvider";
 import ISource from "./iSource";
 import PageHideMyIo from "./pages/pageHideMyIo";
+import { PageOptions } from "../sourceManager";
 
 export default class HideMyIo implements ISource {
 
     readonly sourceSite = "hidemy.io";
     readonly numberOfPages = 200;
 
-    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
+    constructor(public browser: Browser, public pageOptions?: PageOptions) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
@@ -29,8 +30,8 @@ export default class HideMyIo implements ISource {
 
     async getProxyListFromPage(startNumber: number): Promise<Proxy[]> {
         const context = await this.browser.newContext({
+            userAgent: this.pageOptions?.["User-Agent"],
             extraHTTPHeaders: {
-                ...this.pageOptions,
                 "referer": "https://hidemy.io/en/proxy-list/?start=64#list",
                 "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
                 "accept-language": "en,en-US;q=0.9,tr-TR;q=0.8,tr;q=0.7",
@@ -42,8 +43,9 @@ export default class HideMyIo implements ISource {
                 "sec-fetch-site": "none",
                 "sec-fetch-user": "?1",
                 "upgrade-insecure-requests": "1"
-            }
+            },
         });
+
         const page = await context.newPage();
 
         let url = `https://hidemy.io/en/proxy-list/?start=${startNumber * 64}#list`;
@@ -52,7 +54,7 @@ export default class HideMyIo implements ISource {
             console.error(err);
         });
         console.log(status?.status());
-        console.log(await status?.text());
+        await page.screenshot({ path: `data/screenshots/${this.sourceSite}_${startNumber}.png` });
         const pageProxyListOrg = new PageHideMyIo(page, this.sourceSite);
         const proxyList: Proxy[] = await pageProxyListOrg.getProxies();
 

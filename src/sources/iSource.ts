@@ -5,5 +5,5 @@ export default interface ISource {
     readonly sourceSite: string;
     browser: Browser;
     getProxyList(): Promise<Proxy[]>;
-    pageOptions: {} | undefined;
+    pageOptions?: {};
 }
