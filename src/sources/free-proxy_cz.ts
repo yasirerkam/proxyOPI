@@ -5,7 +5,6 @@ import PageFreeProxyCz from "./pages/pageFreeProxyCz";
 
 export default class FreeProxyCz implements Source {
 
-    url = "";
     readonly sourceSite = "free-proxy.cz";
     readonly numberOfPages = 5;
 
