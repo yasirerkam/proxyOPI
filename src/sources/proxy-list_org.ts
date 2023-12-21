@@ -16,30 +16,18 @@ export default class ProxyListOrg implements ISource {
         let promises: Promise<void>[] = [];
 
         for (let i = 1; i <= this.numberOfPages; i++) {
-            const promise = this.getProxyListFromPage(i).then(proxies => {
-                proxyList.push(...proxies);
-            }, err => {
-                console.error(err);
-            }).catch(err => {
-                console.error(err);
+            const urlStr = this.url + "?p=" + i;
+            const promise = this.browser.newContext({ extraHTTPHeaders: this.pageOptions }).then(async context => {
+                await PageProxyListOrg.constructAsync(context, urlStr, this.sourceSite).then(async pageFreeProxyListNet => {
+                    await pageFreeProxyListNet?.getProxies().then(proxies => {
+                        proxyList.push(...proxies);
+                    });
+                });
             });
 
             promises.push(promise);
         }
         await Promise.allSettled(promises);
-
-        return proxyList;
-    }
-
-    async getProxyListFromPage(pageNumber: number): Promise<Proxy[]> {
-        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
-        const page = await context.newPage();
-
-        await page.goto(this.url + "?p=" + pageNumber);
-        const pageProxyListOrg = new PageProxyListOrg(page, this.sourceSite);
-        const proxyList: Proxy[] = await pageProxyListOrg.getProxies();
-
-        await context.close();
 
         return proxyList;
     }

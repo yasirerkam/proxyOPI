@@ -12,7 +12,7 @@ export default class FreeProxyListNet implements ISource {
         'https://www.sslproxies.org/',
         'https://free-proxy-list.net/anonymous-proxy.html',
     ];
-    readonly sourceSite = "proxy-list.org";
+    readonly sourceSite = "free-proxy-list.net";
 
     constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
 
@@ -21,30 +21,17 @@ export default class FreeProxyListNet implements ISource {
         let promises: Promise<void>[] = [];
 
         for (const url of this.urls) {
-            const promise = this.getProxyListFromURLs(url).then(proxies => {
-                proxyList.push(...proxies);
-            }, err => {
-                console.error(err);
-            }).catch(err => {
-                console.error(err);
+            const promise = this.browser.newContext({ extraHTTPHeaders: this.pageOptions }).then(async context => {
+                await PageFreeProxyListNet.constructAsync(context, url, this.sourceSite).then(async pageFreeProxyListNet => {
+                    await pageFreeProxyListNet?.getProxies().then(proxies => {
+                        proxyList.push(...proxies);
+                    });
+                });
             });
 
             promises.push(promise);
         }
         await Promise.allSettled(promises);
-
-        return proxyList;
-    }
-
-    async getProxyListFromURLs(url: string): Promise<Proxy[]> {
-        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
-        const page = await context.newPage();
-
-        await page.goto(url);
-        const pageProxyListOrg = new PageFreeProxyListNet(page, this.sourceSite);
-        const proxyList: Proxy[] = await pageProxyListOrg.getProxies();
-
-        await context.close();
 
         return proxyList;
     }

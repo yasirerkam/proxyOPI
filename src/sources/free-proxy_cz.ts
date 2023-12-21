@@ -1,9 +1,9 @@
 import { Browser } from "playwright-core";
 import { AnonymityLevel, Protocol, Proxy } from "../proxyProvider";
-import Source from "./iSource";
+import ISource from "./iSource";
 import PageFreeProxyCz from "./pages/pageFreeProxyCz";
 
-export default class FreeProxyCz implements Source {
+export default class FreeProxyCz implements ISource {
 
     readonly sourceSite = "free-proxy.cz";
     readonly numberOfPages = 5;
@@ -26,8 +26,11 @@ export default class FreeProxyCz implements Source {
                         level = "level1";
                     }
                     const url: string = `http://free-proxy.cz/en/proxylist/country/all/${protocol}/ping/${level}/${pageNumber}`;
+
                     try {
-                        await this.getProxyListFromPage(url, protocol, anonymityLevel).then(proxies => {
+                        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
+                        const pageFreeProxyCz = await PageFreeProxyCz.constructAsync(context, url, this.sourceSite, protocol, anonymityLevel);
+                        await pageFreeProxyCz?.getProxies().then(proxies => {
                             proxyList.push(...proxies);
                         });
                     } catch (err) {
@@ -37,19 +40,6 @@ export default class FreeProxyCz implements Source {
                 }
             }
         }
-
-        return proxyList;
-    }
-
-    async getProxyListFromPage(url: string, protocol: Protocol, anonimityLevel: AnonymityLevel): Promise<Proxy[]> {
-        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
-        const page = await context.newPage();
-
-        await page.goto(url);
-        const pageFreeProxyCz = new PageFreeProxyCz(page, this.sourceSite);
-        const proxyList: Proxy[] = await pageFreeProxyCz.getProxies(protocol, anonimityLevel);
-
-        await context.close();
 
         return proxyList;
     }

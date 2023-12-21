@@ -1,8 +1,18 @@
 import { Page } from "playwright-core";
 import { Proxy, Protocol, AnonymityLevel } from "../../proxyProvider";
+import { BrowserContext } from "playwright-core";
+import IPage from "./iPage";
 
-export default class PageHideMyIo {
-    constructor(private page: Page, private sourceSite: string) { }
+export default class PageHideMyIo implements IPage {
+    constructor(public url: string, private page: Page, private sourceSite: string) { }
+
+    static async constructAsync(context: BrowserContext, url: string, sourceSite: string) {
+        const page = await context.newPage();
+        return await page.goto(url).then(response => {
+            if (response?.status() === 200)
+                return new PageHideMyIo(url, page, sourceSite);
+        });
+    }
 
     async getProxies(): Promise<Proxy[]> {
         const proxyList = [];

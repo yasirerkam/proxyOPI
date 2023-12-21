@@ -1,11 +1,21 @@
 import { Page } from "playwright-core";
 import { Proxy, Protocol, AnonymityLevel } from "../../proxyProvider";
 import { text } from "stream/consumers";
+import { BrowserContext } from "playwright-core";
+import IPage from "./iPage";
 
-export default class PageOpenproxySpace {
-    constructor(private page: Page, private sourceSite: string) { }
+export default class PageOpenproxySpace implements IPage {
+    constructor(public url: string, private page: Page, private sourceSite: string, private protocol: Protocol) { }
 
-    async getProxies(protocol: Protocol): Promise<Proxy[]> {
+    static async constructAsync(context: BrowserContext, url: string, sourceSite: string, protocol: Protocol) {
+        const page = await context.newPage();
+        return await page.goto(url).then(response => {
+            if (response?.status() === 200)
+                return new PageOpenproxySpace(url, page, sourceSite, protocol);
+        });
+    }
+
+    async getProxies(): Promise<Proxy[]> {
         const proxyList = [];
 
         const textArea = await this.page.locator("xpath=//textarea[@class='text-input']").textContent();
@@ -13,7 +23,7 @@ export default class PageOpenproxySpace {
             const proxyRows = textArea.split('\n');
             for (const proxyRow of proxyRows) {
                 const proxyParts = proxyRow.split(':');
-                const proxy: Proxy = { ip: proxyParts[0].trim(), port: proxyParts[1].trim(), anonymityLevel: AnonymityLevel.unknown, protocols: [protocol], sourceSite: this.sourceSite };
+                const proxy: Proxy = { ip: proxyParts[0].trim(), port: proxyParts[1].trim(), anonymityLevel: AnonymityLevel.unknown, protocols: [this.protocol], sourceSite: this.sourceSite };
 
                 proxyList.push(proxy);
             }

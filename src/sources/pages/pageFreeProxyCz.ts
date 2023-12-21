@@ -1,10 +1,20 @@
 import { Page } from "playwright-core";
 import { Proxy, Protocol, AnonymityLevel } from "../../proxyProvider";
+import IPage from "./iPage";
+import { BrowserContext } from "playwright-core";
 
-export default class PageFreeProxyCz {
-    constructor(private page: Page, private sourceSite: string) { }
+export default class PageFreeProxyCz implements IPage {
+    constructor(public url: string, private page: Page, private sourceSite: string, private protocol: Protocol, private anonymityLevel: AnonymityLevel) { }
 
-    async getProxies(protocol: Protocol, anonymityLevel: AnonymityLevel): Promise<Proxy[]> {
+    static async constructAsync(context: BrowserContext, url: string, sourceSite: string, protocol: Protocol, anonymityLevel: AnonymityLevel) {
+        const page = await context.newPage();
+        return await page.goto(url).then(response => {
+            if (response?.status() === 200)
+                return new PageFreeProxyCz(url, page, sourceSite, protocol, anonymityLevel);
+        });
+    }
+
+    async getProxies(): Promise<Proxy[]> {
         const proxyList = [];
 
         const proxyRows = await this.page.locator(`xpath=//table[@id='proxy_list']/tbody/tr`).all();
@@ -18,7 +28,7 @@ export default class PageFreeProxyCz {
             const response: string = await proxyRow.locator(`xpath=//td[10]`).innerText();
             const lastCheked: string = await proxyRow.locator(`xpath=//td[11]`).innerText();
 
-            const proxy: Proxy = { ip: ip, port: port, country: country, city: city, anonymityLevel: anonymityLevel, protocols: [protocol], sourceSite: this.sourceSite, speed: speed, uptime: uptime, responseTime: response, lastTested: lastCheked };
+            const proxy: Proxy = { ip: ip, port: port, country: country, city: city, anonymityLevel: this.anonymityLevel, protocols: [this.protocol], sourceSite: this.sourceSite, speed: speed, uptime: uptime, responseTime: response, lastTested: lastCheked };
             proxyList.push(proxy);
         }
 

@@ -27,13 +27,13 @@ export default class SourceManager {
 
         this.sources = [
             new OpenproxySpace(this.browser, this.pageOptions),
-            // new HideMyIo(this.browser, this.pageOptions), // TODO: cloudflare will be taken care of 
-            // new MyProxyCom(this.browser, this.pageOptions),
-            // new FreeProxyListNet(this.browser, this.pageOptions),
-            // new FreeProxyCz(this.browser, this.pageOptions),
-            // new CoolProxyNet(this.browser, this.pageOptions),
-            // new CheckerProxyNet(this.browser, this.pageOptions),
-            // new ProxyListOrg(this.browser, this.pageOptions),
+            new HideMyIo(this.browser, this.pageOptions), // TODO: cloudflare will be taken care of 
+            new MyProxyCom(this.browser, this.pageOptions),
+            new FreeProxyListNet(this.browser, this.pageOptions),
+            new FreeProxyCz(this.browser, this.pageOptions),
+            new CoolProxyNet(this.browser, this.pageOptions),
+            new CheckerProxyNet(this.browser, this.pageOptions),
+            new ProxyListOrg(this.browser, this.pageOptions),
         ];
     }
 

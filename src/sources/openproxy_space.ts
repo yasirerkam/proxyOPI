@@ -1,9 +1,9 @@
 import { Browser } from "playwright-core";
 import { AnonymityLevel, Protocol, Proxy } from "../proxyProvider";
-import Source from "./iSource";
+import ISource from "./iSource";
 import PageOpenproxySpace from "./pages/pageOpenproxySpace";
 
-export default class OpenproxySpace implements Source {
+export default class OpenproxySpace implements ISource {
 
     readonly sourceSite = "openproxy.space";
 
@@ -21,7 +21,9 @@ export default class OpenproxySpace implements Source {
         for (const url of urls) {
             const protocol = url[1] as Protocol;
             try {
-                await this.getProxyListFromPage(url[0], protocol).then(proxies => {
+                const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
+                const pageFreeProxyCz = await PageOpenproxySpace.constructAsync(context, url[0], this.sourceSite, protocol);
+                await pageFreeProxyCz?.getProxies().then(proxies => {
                     proxyList.push(...proxies);
                 });
             } catch (err) {
@@ -29,20 +31,6 @@ export default class OpenproxySpace implements Source {
                 break;
             }
         }
-
-        return proxyList;
-    }
-
-    async getProxyListFromPage(url: string, protocol: Protocol): Promise<Proxy[]> {
-        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
-        const page = await context.newPage();
-        let proxyList: Proxy[] = [];
-
-        const response = await page.goto(url);
-        if (response?.status() === 200)
-            proxyList = await new PageOpenproxySpace(page, this.sourceSite).getProxies(protocol);
-
-        await context.close();
 
         return proxyList;
     }
