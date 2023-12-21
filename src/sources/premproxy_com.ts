@@ -5,7 +5,7 @@ import PagePremProxyCom from "./pages/pagePremProxyCom";
 
 export default class PremProxyCom implements ISource {
 
-    readonly sourceSite = "free-proxy.cz";
+    readonly sourceSite = "premproxy.com";
     readonly numberOfPages = 10;
 
     constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
