@@ -12,6 +12,7 @@ import MyProxyCom from "./sources/my-proxy_com";
 import OpenproxySpace from "./sources/openproxy_space";
 import PremProxyCom from "./sources/premproxy_com";
 import ProxyDailyCom from "./sources/proxy-daily_com";
+import HideIpMe from "./sources/hideip_me";
 
 export type PageOptions = { "User-Agent": string };
 
@@ -28,7 +29,8 @@ export default class SourceManager {
         }
 
         this.sources = [
-            new ProxyDailyCom(this.browser, this.pageOptions),
+            new HideIpMe(this.browser, this.pageOptions),
+            // new ProxyDailyCom(this.browser, this.pageOptions),
             // new PremProxyCom(this.browser, this.pageOptions),
             // new OpenproxySpace(this.browser, this.pageOptions),
             // new MyProxyCom(this.browser, this.pageOptions),
