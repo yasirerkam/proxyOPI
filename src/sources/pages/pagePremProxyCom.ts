@@ -20,13 +20,13 @@ export default class PagePremProxyCom implements IPage {
         const proxyRows = await this.page.locator(`xpath=//table[@id="proxylistt"]/tbody/tr`).all();
         proxyRows.pop(); // last row is empty
         for (const proxyRow of proxyRows) {
-            const ipPort: string[] = (await proxyRow.locator(`xpath=//td[1]`).innerText()).split(':');
+            const ipPort: string[] = (await proxyRow.locator(`xpath=/td[1]`).innerText()).split(':');
             const ip: string = ipPort[0];
             const port: string = ipPort[1];
-            const anonymityType: string = await proxyRow.locator(`xpath=//td[2]`).innerText();
-            const lastCheked: string = await proxyRow.locator(`xpath=//td[3]`).innerText();
-            const country: string | undefined = await proxyRow.locator(`xpath=//td[4]`).innerText();
-            const city: string = await proxyRow.locator(`xpath=//td[5]`).innerText();
+            const anonymityType: string = await proxyRow.locator(`xpath=/td[2]`).innerText();
+            const lastCheked: string = await proxyRow.locator(`xpath=/td[3]`).innerText();
+            const country: string | undefined = await proxyRow.locator(`xpath=/td[4]`).innerText();
+            const city: string = await proxyRow.locator(`xpath=/td[5]`).innerText();
 
             const proxy: Proxy = { ip: ip, port: port, country: country, city: city, anonymityLevel: this.transformAnonymityLevel(anonymityType), protocols: [this.transformProtocol(anonymityType)], sourceSite: this.sourceSite, lastTested: lastCheked };
             proxyList.push(proxy);

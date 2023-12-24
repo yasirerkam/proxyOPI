@@ -19,13 +19,13 @@ export default class PageHideMyIo implements IPage {
 
         const proxyRows = await this.page.locator(`xpath=//div[@class="table_block"]/table/tbody/tr`).all();
         for (const proxyRow of proxyRows) {
-            const ip: string = await proxyRow.locator(`xpath=//td[1]`).innerText();
-            const port: string = await proxyRow.locator(`xpath=//td[2]`).innerText();
-            const country: string | undefined = await proxyRow.locator(`xpath=//td[3]/span[@class="country"]`).innerText();
-            const speed: string = await proxyRow.locator(`xpath=//td[4]/div`).innerText();
-            const protocol: Protocol = this.transformProtocol(await proxyRow.locator(`xpath=//td[5]`).innerText());
-            const anonimityLevel: AnonymityLevel = this.transformAnonymityLevel(await proxyRow.locator(`xpath=//td[6]`).innerText());
-            const latestUpdate: string = await proxyRow.locator(`xpath=//td[7]`).innerText();
+            const ip: string = await proxyRow.locator(`xpath=/td[1]`).innerText();
+            const port: string = await proxyRow.locator(`xpath=/td[2]`).innerText();
+            const country: string | undefined = await proxyRow.locator(`xpath=/td[3]/span[@class="country"]`).innerText();
+            const speed: string = await proxyRow.locator(`xpath=/td[4]/div`).innerText();
+            const protocol: Protocol = this.transformProtocol(await proxyRow.locator(`xpath=/td[5]`).innerText());
+            const anonimityLevel: AnonymityLevel = this.transformAnonymityLevel(await proxyRow.locator(`xpath=/td[6]`).innerText());
+            const latestUpdate: string = await proxyRow.locator(`xpath=/td[7]`).innerText();
 
             const proxy: Proxy = { ip: ip, port: port, country: country, anonymityLevel: anonimityLevel, protocols: [protocol], sourceSite: this.sourceSite, speed: speed, lastTested: latestUpdate };
             proxyList.push(proxy);
