@@ -13,6 +13,7 @@ import OpenproxySpace from "./sources/openproxy_space";
 import PremProxyCom from "./sources/premproxy_com";
 import ProxyDailyCom from "./sources/proxy-daily_com";
 import HideIpMe from "./sources/hideip_me";
+import ProxyNovaCom from "./sources/proxynova_com";
 
 export type PageOptions = { "User-Agent": string };
 
@@ -29,7 +30,8 @@ export default class SourceManager {
         }
 
         this.sources = [
-            new HideIpMe(this.browser, this.pageOptions),
+            new ProxyNovaCom(this.browser, this.pageOptions),
+            // new HideIpMe(this.browser, this.pageOptions),
             // new ProxyDailyCom(this.browser, this.pageOptions),
             // new PremProxyCom(this.browser, this.pageOptions),
             // new OpenproxySpace(this.browser, this.pageOptions),
@@ -39,7 +41,7 @@ export default class SourceManager {
             // new CoolProxyNet(this.browser, this.pageOptions),
             // new CheckerProxyNet(this.browser, this.pageOptions),
             // new ProxyListOrg(this.browser, this.pageOptions),
-            // new HideMyIo(this.browser, this.pageOptions), // TODO: cloudflare will be taken care of 
+            // // new HideMyIo(this.browser, this.pageOptions), // TODO: cloudflare will be taken care of 
         ];
     }
 
