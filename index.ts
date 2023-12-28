@@ -17,7 +17,7 @@ export default class ProxyOPI {
 
 async function test() {
     await ProxyOPI.asyncInit({ protocols: ['https'], anonymityLevels: ['elite', 'anonymous'] }, "./data/proxyList.json", 4 * 60 * 60 * 1000);
-    const proxyList = await ProxyOPI.getProxyList(true);
+    // const proxyList = await ProxyOPI.getProxyList(true);
     // console.log("\nProxy list is:\n", proxyList);
 }
 

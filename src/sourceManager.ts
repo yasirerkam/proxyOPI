@@ -14,6 +14,7 @@ import PremProxyCom from "./sources/premproxy_com";
 import ProxyDailyCom from "./sources/proxy-daily_com";
 import HideIpMe from "./sources/hideip_me";
 import ProxyNovaCom from "./sources/proxynova_com";
+import ProxyScrapeCom from "./sources/proxyscrape_com";
 
 export type PageOptions = { "User-Agent": string };
 
@@ -30,7 +31,8 @@ export default class SourceManager {
         }
 
         this.sources = [
-            new ProxyNovaCom(this.browser, this.pageOptions),
+            new ProxyScrapeCom(this.browser, this.pageOptions),
+            // new ProxyNovaCom(this.browser, this.pageOptions),
             // new HideIpMe(this.browser, this.pageOptions),
             // new ProxyDailyCom(this.browser, this.pageOptions),
             // new PremProxyCom(this.browser, this.pageOptions),
