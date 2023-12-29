@@ -5,6 +5,7 @@ import ISource from "./iSource";
 export default class ProxyScrapeCom implements ISource {
 
     readonly sourceSite = "proxyscrape.com";
+    // https://docs.proxyscrape.com/#9aa2f904-9b9a-435b-9688-2c4d59413560
 
     constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
 
