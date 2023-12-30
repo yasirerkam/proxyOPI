@@ -32,18 +32,18 @@ export default class SourceManager {
 
         this.sources = [
             new ProxyScrapeCom(this.browser, this.pageOptions),
-            // new ProxyNovaCom(this.browser, this.pageOptions),
-            // new HideIpMe(this.browser, this.pageOptions),
-            // new ProxyDailyCom(this.browser, this.pageOptions),
-            // new PremProxyCom(this.browser, this.pageOptions),
-            // new OpenproxySpace(this.browser, this.pageOptions),
-            // new MyProxyCom(this.browser, this.pageOptions),
-            // new FreeProxyListNet(this.browser, this.pageOptions),
-            // new FreeProxyCz(this.browser, this.pageOptions),
-            // new CoolProxyNet(this.browser, this.pageOptions),
-            // new CheckerProxyNet(this.browser, this.pageOptions),
-            // new ProxyListOrg(this.browser, this.pageOptions),
-            // // new HideMyIo(this.browser, this.pageOptions), // TODO: cloudflare will be taken care of 
+            new ProxyNovaCom(this.browser, this.pageOptions),
+            new HideIpMe(this.browser, this.pageOptions),
+            new ProxyDailyCom(this.browser, this.pageOptions),
+            new PremProxyCom(this.browser, this.pageOptions),
+            new OpenproxySpace(this.browser, this.pageOptions),
+            new MyProxyCom(this.browser, this.pageOptions),
+            new FreeProxyListNet(this.browser, this.pageOptions),
+            new FreeProxyCz(this.browser, this.pageOptions),
+            new CoolProxyNet(this.browser, this.pageOptions),
+            new CheckerProxyNet(this.browser, this.pageOptions),
+            new ProxyListOrg(this.browser, this.pageOptions),
+            // new HideMyIo(this.browser, this.pageOptions), // TODO: cloudflare will be taken care of 
         ];
     }
 
