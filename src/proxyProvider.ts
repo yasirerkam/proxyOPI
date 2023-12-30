@@ -49,7 +49,7 @@ export default class ProxyProvider {
             console.log("\nProxy list value is undefined, null or empty.");
             return await this.getNewProxyListAsync();
         }
-        else if ((Date.now() - this.proxyList.dateTime) > this.timeout) {
+        else if ((Date.now() - this.proxyList.dateTime) > this.timeout * 60 * 1000) {
             console.log("\nProxy list is expired.");
             return await this.getNewProxyListAsync();
         }
@@ -87,13 +87,13 @@ export default class ProxyProvider {
 
     //#endregion properties
 
-    private constructor(options: any, pathProxyList: string, timeout: number = 8 * 60 * 60 * 1000) {
+    private constructor(options: any, pathProxyList: string, timeout: number) {
         this.options = options;
         this.pathProxyList = pathProxyList;
         this.timeout = timeout;
     }
 
-    static async getInstanceAsync(options: any, pathProxyList: string, timeout: number = 8 * 60 * 60 * 1000): Promise<ProxyProvider> {
+    static async getInstanceAsync(options: any, pathProxyList: string, timeout: number = 4 * 60): Promise<ProxyProvider> {
         if (this.instance === undefined || this.instance === null) {
             this.instance = new ProxyProvider(options, pathProxyList, timeout);
 

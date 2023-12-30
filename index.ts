@@ -6,7 +6,7 @@ export default class ProxyOPI {
     private proxyProvider!: ProxyProvider;
     private constructor() { }
 
-    public static async getInstanceAsync(options: any, pathProxyList: string, timeout: number = 4 * 60 * 60 * 1000) {
+    public static async getInstanceAsync(options: any, pathProxyList: string, timeout: number = 4 * 60) {
         if (this.instance === undefined || this.instance === null) {
             this.instance = new ProxyOPI();
             // this.options = { protocols: ['https'], anonymityLevels: ['elite', 'anonymous'] };
