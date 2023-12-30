@@ -9,32 +9,34 @@ export type ProxyList = { dateTime: number, list: Proxy[] };
 
 export default class ProxyProvider {
 
+
     //#region properties
 
-    static sourceManager: SourceManager;
-    static options: any;
-    static timeout: number;
+    private static instance: ProxyProvider;
+    options: any;
+    timeout: number;
+    sourceManager!: SourceManager;
 
     //#region CurrentProxy
-    private static currentProxy?: Proxy = undefined;
-    private static setCurrentProxy(value?: Proxy) {
+    private currentProxy?: Proxy = undefined;
+    private setCurrentProxy(value?: Proxy) {
         this.currentProxy = value;
         console.log("\nCurrent proxy is set:\n", this.currentProxy);
     }
-    static getCurrentProxy() { return this.currentProxy; }
+    getCurrentProxy() { return this.currentProxy; }
     //#endregion CurrentProxy
 
     //#region ProxyList
 
-    private static proxyList: ProxyList;
-    static setProxyList(value: ProxyList, save: boolean = true) {
+    private proxyList!: ProxyList;
+    setProxyList(value: ProxyList, save: boolean = true) {
         this.proxyList = value;
         this.proxyList.list = this.shuffle(this.proxyList.list);
         console.log("\nProxy list is set. Number of proxies: %d.", this.proxyList.list.length);
         if (save)
             this.writeProxyListObjFile();
     }
-    static async getProxyListAsync(): Promise<ProxyList> {
+    async getProxyListAsync(): Promise<ProxyList> {
         if (this.proxyList === undefined || this.proxyList === null) {
             console.log("\nProxy list value is undefined or null.");
             return await this.getNewProxyListAsync();
@@ -56,24 +58,24 @@ export default class ProxyProvider {
     }
 
     //#region pathProxyList
-    private static pathProxyList: string;
-    static setPathProxyList(value: string) {
+    private pathProxyList: string;
+    setPathProxyList(value: string) {
         this.pathProxyList = value;
         console.log("\npathProxyList is set to '%s'.", value);
         this.pathProxyListParsed = path.parse(value);
     }
-    static getPathProxyList(): string {
+    getPathProxyList(): string {
         return this.pathProxyList;
     }
     //#endregion pathProxyList
 
     //#region pathProxyListParsed
-    private static pathProxyListParsed: path.ParsedPath;
-    static setPathProxyListParsed(value: path.ParsedPath) {
+    private pathProxyListParsed!: path.ParsedPath;
+    setPathProxyListParsed(value: path.ParsedPath) {
         this.pathProxyListParsed = value;
         console.log("pathProxyListParsed is set.");
     }
-    static getPathProxyListParsed(): path.ParsedPath {
+    getPathProxyListParsed(): path.ParsedPath {
         if (this.pathProxyListParsed === null || this.pathProxyListParsed === undefined)
             this.pathProxyListParsed = path.parse(this.pathProxyList);
 
@@ -85,37 +87,43 @@ export default class ProxyProvider {
 
     //#endregion properties
 
-
-    static async initAsync(options: any, pathProxyList: string, timeout: number = 8 * 60 * 60 * 1000) {
+    private constructor(options: any, pathProxyList: string, timeout: number = 8 * 60 * 60 * 1000) {
         this.options = options;
         this.pathProxyList = pathProxyList;
         this.timeout = timeout;
+    }
 
-        await this.readProxyListObjFileAsync();
+    static async getInstanceAsync(options: any, pathProxyList: string, timeout: number = 8 * 60 * 60 * 1000): Promise<ProxyProvider> {
+        if (this.instance === undefined || this.instance === null) {
+            this.instance = new ProxyProvider(options, pathProxyList, timeout);
+
+            await SourceManager.getInstanceAsync().then(async sourceManager => {
+                this.instance.sourceManager = sourceManager;
+            }).then(async () => {
+                await this.instance.readProxyListObjFileAsync();
+            });
+        }
+
+        return this.instance;
     }
 
 
-    static async getNewProxyListAsync(): Promise<ProxyList> {
-        this.sourceManager = await SourceManager.constructAsync();
+    async getNewProxyListAsync(): Promise<ProxyList> {
         const proxyList = { dateTime: Date.now(), list: await this.sourceManager.getProxyList() };
         this.setProxyList(proxyList);
-
-        if (this.sourceManager.browser.isConnected()) {
-            await this.sourceManager.browser.close();
-        }
 
         return proxyList;
     }
 
-    static printCurrentProxy() {
+    printCurrentProxy() {
         console.log("\nCurrent proxy is:\n", this.currentProxy);
     }
 
-    private static writeProxyListObjFile(format = false) {
+    private writeProxyListObjFile(format = false) {
         JsonFileOps.writeJson(this.proxyList, this.pathProxyList, { flag: 'w' }, format);
     }
 
-    private static async readProxyListObjFileAsync(): Promise<void> {
+    private async readProxyListObjFileAsync(): Promise<void> {
         try {
             if (!JsonFileOps.isFileExists(this.pathProxyList))
                 await this.getNewProxyListAsync();
@@ -132,7 +140,7 @@ export default class ProxyProvider {
         }
     }
 
-    private static shuffle(array: any[]) {
+    private shuffle(array: any[]) {
         for (let i = array?.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];

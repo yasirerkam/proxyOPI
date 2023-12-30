@@ -19,6 +19,7 @@ import ProxyScrapeCom from "./sources/proxyscrape_com";
 export type PageOptions = { "User-Agent": string };
 
 export default class SourceManager {
+    private static instance: SourceManager;
     sources: ISource[];
     pageOptions?: PageOptions;
 
@@ -47,9 +48,13 @@ export default class SourceManager {
         ];
     }
 
-    static async constructAsync() {
-        const browser = await chromium.launch();
-        return new SourceManager(browser);
+    static async getInstanceAsync(): Promise<SourceManager> {
+        if (this.instance === undefined || this.instance === null) {
+            const browser = await chromium.launch({ headless: true });
+            this.instance = new SourceManager(browser);
+        }
+
+        return this.instance;
     }
 
     async getProxyList(): Promise<Proxy[]> {
