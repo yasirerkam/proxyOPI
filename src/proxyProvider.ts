@@ -2,18 +2,16 @@ import path from 'path';
 import JsonFileOps from './jsonFileOps';
 import SourceManager from './sourceManager';
 
-export const enum AnonymityLevel { transparent = "transparent", anonymous = "anonymous", elite = "elite", unknown = "" }
-export const enum Protocol { http = "http", https = "https", socks4 = "socks4", socks5 = "socks5", unknown = "" }
+export const enum AnonymityLevel { transparent = "transparent", anonymous = "anonymous", elite = "elite", unknown = "unknown" }
+export const enum Protocol { http = "http", https = "https", socks4 = "socks4", socks5 = "socks5", unknown = "unknown" }
 export type Proxy = { ip: string, port: string, protocols: Protocol[], sourceSite: string, anonymityLevel?: AnonymityLevel, lastTested?: string, country?: string, city?: string, isp?: string, speed?: string, uptime?: string, responseTime?: string, verified?: string, };
 export type ProxyList = { dateTime: number, list: Proxy[] };
 
 export default class ProxyProvider {
 
-
     //#region properties
 
     private static instance: ProxyProvider;
-    options: any;
     timeout: number;
     sourceManager!: SourceManager;
 
@@ -36,7 +34,7 @@ export default class ProxyProvider {
         if (save)
             this.writeProxyListObjFile();
     }
-    async getProxyListAsync(): Promise<ProxyList> {
+    async getProxyListAsync(options: any): Promise<ProxyList> {
         if (this.proxyList === undefined || this.proxyList === null) {
             console.log("\nProxy list value is undefined or null.");
             return await this.getNewProxyListAsync();
@@ -87,15 +85,14 @@ export default class ProxyProvider {
 
     //#endregion properties
 
-    private constructor(options: any, pathProxyList: string, timeout: number) {
-        this.options = options;
+    private constructor(pathProxyList: string, timeout: number) {
         this.pathProxyList = pathProxyList;
         this.timeout = timeout;
     }
 
-    static async getInstanceAsync(options: any, pathProxyList: string, timeout: number = 4 * 60): Promise<ProxyProvider> {
+    static async getInstanceAsync(pathProxyList: string, timeout: number = 4 * 60): Promise<ProxyProvider> {
         if (this.instance === undefined || this.instance === null) {
-            this.instance = new ProxyProvider(options, pathProxyList, timeout);
+            this.instance = new ProxyProvider(pathProxyList, timeout);
 
             await SourceManager.getInstanceAsync().then(async sourceManager => {
                 this.instance.sourceManager = sourceManager;
