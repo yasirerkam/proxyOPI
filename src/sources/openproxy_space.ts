@@ -29,7 +29,7 @@ export default class OpenproxySpace implements ISource {
                 });
                 await context.close();
             } catch (err) {
-                console.error(err);
+                console.error("\n" + err);
                 break;
             }
         }

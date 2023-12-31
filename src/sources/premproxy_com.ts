@@ -25,7 +25,7 @@ export default class PremProxyCom implements ISource {
                 });
                 await context.close();
             } catch (err) {
-                console.error(err);
+                console.error("\n" + err);
                 break;
             }
         }

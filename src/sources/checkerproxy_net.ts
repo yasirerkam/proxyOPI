@@ -68,11 +68,11 @@ export default class CheckerProxyNet implements ISource {
                 }
             }
             else
-                console.error(`\nURL -> ${this.url}\nResponse status is not 200 -> ${response.status()}`);
+                console.error(`\nURL -> ${this.url}\nResponse status is not 200 -> ${response.status()}\n${await response.text()}`);
         }, err => {
-            console.error(err);
+            console.error("\n" + err);
         }).catch(err => {
-            console.error(err);
+            console.error("\n" + err);
         });
 
         if (page.isClosed() === false)

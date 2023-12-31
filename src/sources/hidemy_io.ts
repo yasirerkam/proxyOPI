@@ -39,7 +39,7 @@ export default class HideMyIo implements ISource {
                 });
                 context.close();
             } catch (err) {
-                console.error(err);
+                console.error("\n" + err);
                 break;
             }
         }

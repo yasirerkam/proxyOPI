@@ -23,7 +23,7 @@ export default class ProxyDailyCom implements ISource {
             });
             await context.close();
         } catch (err) {
-            console.error(err);
+            console.error("\n" + err);
         }
 
         return proxyList;

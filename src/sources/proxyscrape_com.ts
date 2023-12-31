@@ -48,9 +48,9 @@ export default class ProxyScrapeCom implements ISource {
                 else
                     console.error(`\nURL -> ${url}\nResponse status is not 200 -> ${response.status()}`);
             }, err => {
-                console.error(err);
+                console.error("\n" + err);
             }).catch(err => {
-                console.error(err);
+                console.error("\n" + err);
             });
 
             if (page.isClosed() === false)
