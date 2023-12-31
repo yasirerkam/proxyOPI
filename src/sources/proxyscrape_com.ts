@@ -51,6 +51,7 @@ export default class ProxyScrapeCom implements ISource {
                 console.error("\n" + err);
             }).catch(err => {
                 console.error("\n" + err);
+                page.screenshot({ path: `data/screenshots/${url}.png` });
             });
 
             if (page.isClosed() === false)

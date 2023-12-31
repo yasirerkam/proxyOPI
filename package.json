@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "description": "free proxy api",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "build": "tsc",
-    "start": "node ."
+    "start": "node index.ts",
+    "debug": "node --inspect index.ts"
   },
   "keywords": [
     "proxy",
@@ -20,11 +21,11 @@
   ],
   "author": "Yasir Erkam Özdemir",
   "license": "",
-  "dependencies": {
-    "playwright": "^1.40.1"
-  },
   "devDependencies": {
     "@types/node": "^20.10.4",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "playwright": "^1.40.1"
   }
 }

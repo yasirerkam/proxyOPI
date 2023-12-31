@@ -54,10 +54,10 @@ export default class SourceManager {
             new OpenproxySpace(this.browser, this.browserContextOptions),
             new MyProxyCom(this.browser, this.browserContextOptions),
             new FreeProxyListNet(this.browser, this.browserContextOptions),
-            new FreeProxyCz(this.browser, this.browserContextOptions),
             new CoolProxyNet(this.browser, this.browserContextOptions),
             new CheckerProxyNet(this.browser, this.browserContextOptions),
             new ProxyListOrg(this.browser, this.browserContextOptions),
+            // new FreeProxyCz(this.browser, this.browserContextOptions), // TODO: CAPTCHA
             // new HideMyIo(this.browser, this.browserContextOptions), // TODO: cloudflare will be taken care of 
         ];
 
