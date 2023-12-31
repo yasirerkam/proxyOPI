@@ -34,10 +34,10 @@ async function test() {
 }
 
 async function main() {
-    await test().catch(err => {
-        console.error(err);
+    return await test().catch(err => {
+        return console.error(err);
     });
 }
 
 main();
-
+console.error("end");

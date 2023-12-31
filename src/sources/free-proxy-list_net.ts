@@ -14,20 +14,21 @@ export default class FreeProxyListNet implements ISource {
     ];
     readonly sourceSite = "free-proxy-list.net";
 
-    constructor(public browser: Browser) { }
+    constructor(public browser: Browser, private browserContextOptions?: any) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
         let promises: Promise<void>[] = [];
 
         for (const url of this.urls) {
-            const promise = this.browser.newContext().then(async context => {
+            const promise = this.browser.newContext(this.browserContextOptions).then(async context => {
                 context.setDefaultNavigationTimeout(60000);
                 await PageFreeProxyListNet.constructAsync(context, url, this.sourceSite).then(async pageFreeProxyListNet => {
                     await pageFreeProxyListNet?.getProxies().then(proxies => {
                         proxyList.push(...proxies);
                     });
                 });
+                await context.close();
             });
 
             promises.push(promise);

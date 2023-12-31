@@ -16,42 +16,25 @@ import HideIpMe from "./sources/hideip_me";
 import ProxyNovaCom from "./sources/proxynova_com";
 import ProxyScrapeCom from "./sources/proxyscrape_com";
 
-export type PageOptions = { "User-Agent": string };
 
 export default class SourceManager {
     private static instance: SourceManager;
-    sources: ISource[];
-    pageOptions?: PageOptions;
+    sources?: ISource[];
+    browser?: Browser;
+    browserContextOptions?: any;
 
-    private constructor(public browser: Browser) {
+    private constructor() {
         try {
-            this.pageOptions = JsonFileOps.readJson("data/pageOptions.json");
+            this.browserContextOptions = JsonFileOps.readJson("data/browserContextOptions.json");
         } catch (err) {
-            console.log("\nError in reading pageOptions.json:\n", err);
-            this.pageOptions = undefined;
+            console.log("\nError in reading browserContextOptions.json:\n", err);
+            this.browserContextOptions = undefined;
         }
-
-        this.sources = [
-            new ProxyScrapeCom(this.browser),
-            new ProxyNovaCom(this.browser),
-            new HideIpMe(this.browser),
-            new ProxyDailyCom(this.browser),
-            new PremProxyCom(this.browser),
-            new OpenproxySpace(this.browser),
-            new MyProxyCom(this.browser),
-            new FreeProxyListNet(this.browser),
-            new FreeProxyCz(this.browser),
-            new CoolProxyNet(this.browser),
-            new CheckerProxyNet(this.browser),
-            new ProxyListOrg(this.browser),
-            // new HideMyIo(this.browser), // TODO: cloudflare will be taken care of 
-        ];
     }
 
     static async getInstanceAsync(): Promise<SourceManager> {
         if (this.instance === undefined || this.instance === null) {
-            const browser = await chromium.launch({ headless: true });
-            this.instance = new SourceManager(browser);
+            this.instance = new SourceManager();
         }
 
         return this.instance;
@@ -60,6 +43,23 @@ export default class SourceManager {
     async getProxyList(): Promise<Proxy[]> {
         let proxyList: Proxy[] = [];
         let promises: Promise<void>[] = [];
+        this.browser = await chromium.launch({ headless: true });
+
+        this.sources = [
+            new ProxyScrapeCom(this.browser, this.browserContextOptions),
+            new ProxyNovaCom(this.browser, this.browserContextOptions),
+            new HideIpMe(this.browser, this.browserContextOptions),
+            new ProxyDailyCom(this.browser, this.browserContextOptions),
+            new PremProxyCom(this.browser, this.browserContextOptions),
+            new OpenproxySpace(this.browser, this.browserContextOptions),
+            new MyProxyCom(this.browser, this.browserContextOptions),
+            new FreeProxyListNet(this.browser, this.browserContextOptions),
+            new FreeProxyCz(this.browser, this.browserContextOptions),
+            new CoolProxyNet(this.browser, this.browserContextOptions),
+            new CheckerProxyNet(this.browser, this.browserContextOptions),
+            new ProxyListOrg(this.browser, this.browserContextOptions),
+            // new HideMyIo(this.browser, this.browserContextOptions), // TODO: cloudflare will be taken care of 
+        ];
 
         for (const source of this.sources) {
             const promise = source.getProxyList().then(proxies => {
@@ -68,6 +68,8 @@ export default class SourceManager {
             promises.push(promise);
         }
         await Promise.allSettled(promises);
+        await this.browser.close();
+        this.browser = undefined;
 
         return proxyList;
     }

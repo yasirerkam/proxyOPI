@@ -7,7 +7,7 @@ export default class ProxyScrapeCom implements ISource {
     readonly sourceSite = "proxyscrape.com";
     // https://docs.proxyscrape.com/#9aa2f904-9b9a-435b-9688-2c4d59413560
 
-    constructor(public browser: Browser) { }
+    constructor(public browser: Browser, private browserContextOptions?: any) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
@@ -24,7 +24,7 @@ export default class ProxyScrapeCom implements ISource {
             // for (const anonymityLevel of [AnonymityLevel.transparent, AnonymityLevel.anonymous, AnonymityLevel.elite]) {
             const url: string = `https://api.proxyscrape.com/`;
 
-            const context = await this.browser.newContext();
+            const context = await this.browser.newContext(this.browserContextOptions);
             context.setDefaultNavigationTimeout(60000);
             const page = await context.newPage();
 
@@ -53,6 +53,8 @@ export default class ProxyScrapeCom implements ISource {
                 console.error(err);
             });
 
+            if (page.isClosed() === false)
+                await page.close();
             await context.close();
             // }
         }

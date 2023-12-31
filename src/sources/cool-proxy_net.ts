@@ -21,12 +21,12 @@ export default class CoolProxyNet implements ISource {
     readonly url: string = "https://www.cool-proxy.net/proxies.json";
     readonly sourceSite: string = "cool-proxy.net";
 
-    constructor(public browser: Browser) { }
+    constructor(public browser: Browser, private browserContextOptions?: any) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
 
-        const context = await this.browser.newContext();
+        const context = await this.browser.newContext(this.browserContextOptions);
         context.setDefaultNavigationTimeout(60000);
         const page = await context.newPage();
 
@@ -59,6 +59,8 @@ export default class CoolProxyNet implements ISource {
             console.error(err);
         });
 
+        if (page.isClosed() === false)
+            await page.close();
         await context.close();
 
         return proxyList;

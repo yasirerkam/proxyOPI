@@ -8,7 +8,7 @@ export default class PremProxyCom implements ISource {
     readonly sourceSite = "premproxy.com";
     readonly numberOfPages = 10;
 
-    constructor(public browser: Browser) { }
+    constructor(public browser: Browser, private browserContextOptions?: any) { }
 
     async getProxyList(): Promise<Proxy[]> {
         // dont use Promise.allSettled. probably site blocking for multiple requests 
@@ -17,12 +17,13 @@ export default class PremProxyCom implements ISource {
         for (let pageNumber = 1; pageNumber <= this.numberOfPages; pageNumber++) {
             const url: string = `https://premproxy.com/list/${pageNumber.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })}.htm`;
             try {
-                const context = await this.browser.newContext();
+                const context = await this.browser.newContext(this.browserContextOptions);
                 context.setDefaultNavigationTimeout(60000);
                 const pagePremProxyCom = await PagePremProxyCom.constructAsync(context, url, this.sourceSite);
                 await pagePremProxyCom?.getProxies().then(proxies => {
                     proxyList.push(...proxies);
                 });
+                await context.close();
             } catch (err) {
                 console.error(err);
                 break;

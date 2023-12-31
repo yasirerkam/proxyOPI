@@ -2,14 +2,13 @@ import { Browser } from "playwright-core";
 import { Proxy } from "../proxyProvider";
 import ISource from "./iSource";
 import PageHideMyIo from "./pages/pageHideMyIo";
-import { PageOptions } from "../sourceManager";
 
 export default class HideMyIo implements ISource {
 
     readonly sourceSite = "hidemy.io";
     readonly numberOfPages = 200;
 
-    constructor(public browser: Browser, public pageOptions?: PageOptions) { }
+    constructor(public browser: Browser, private browserContextOptions?: any) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
@@ -17,7 +16,6 @@ export default class HideMyIo implements ISource {
         for (let i = 0; i < this.numberOfPages; i++) {
             try {
                 const context = await this.browser.newContext({
-                    userAgent: this.pageOptions?.["User-Agent"],
                     extraHTTPHeaders: {
                         "referer": "https://hidemy.io/en/proxy-list/?start=64#list",
                         "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -31,6 +29,7 @@ export default class HideMyIo implements ISource {
                         "sec-fetch-user": "?1",
                         "upgrade-insecure-requests": "1"
                     },
+                    ...this.browserContextOptions
                 });
                 context.setDefaultNavigationTimeout(60000);
                 let url = `https://hidemy.io/en/proxy-list/?start=${i * 64}#list`;
@@ -38,6 +37,7 @@ export default class HideMyIo implements ISource {
                 await pageHideMyIo?.getProxies().then(proxies => {
                     proxyList.push(...proxies);
                 });
+                context.close();
             } catch (err) {
                 console.error(err);
                 break;

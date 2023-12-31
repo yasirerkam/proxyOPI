@@ -12,13 +12,13 @@ export default class HideIpMe implements ISource {
         ["https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks5.txt", Protocol.socks5],
     ];
 
-    constructor(public browser: Browser) { }
+    constructor(public browser: Browser, private browserContextOptions?: any) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
         let promises: Promise<void>[] = [];
 
-        const context = await this.browser.newContext();
+        const context = await this.browser.newContext(this.browserContextOptions);
         context.setDefaultNavigationTimeout(60000);
         const page = await context.newPage();
 
@@ -44,6 +44,9 @@ export default class HideIpMe implements ISource {
         }
 
         await Promise.allSettled(promises);
+
+        if (page.isClosed() === false)
+            await page.close();
         await context.close();
 
         return proxyList;
