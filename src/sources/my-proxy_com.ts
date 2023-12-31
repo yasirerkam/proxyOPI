@@ -24,14 +24,15 @@ export default class MyProxyCom implements ISource {
     ];
     readonly sourceSite = "my-proxy.com";
 
-    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
+    constructor(public browser: Browser) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
         let promises: Promise<void>[] = [];
 
         for (const url of this.urls) {
-            const promise = this.browser.newContext({ extraHTTPHeaders: this.pageOptions }).then(async context => {
+            const promise = this.browser.newContext().then(async context => {
+                context.setDefaultNavigationTimeout(60000);
                 await PageMyProxyCom.constructAsync(context, url[0], this.sourceSite, url[1] as Protocol, url[2] as AnonymityLevel).then(async pageFreeProxyListNet => {
                     await pageFreeProxyListNet?.getProxies().then(proxies => {
                         proxyList.push(...proxies);

@@ -32,6 +32,7 @@ export default class HideMyIo implements ISource {
                         "upgrade-insecure-requests": "1"
                     },
                 });
+                context.setDefaultNavigationTimeout(60000);
                 let url = `https://hidemy.io/en/proxy-list/?start=${i * 64}#list`;
                 const pageHideMyIo = await PageHideMyIo.constructAsync(context, url, this.sourceSite);
                 await pageHideMyIo?.getProxies().then(proxies => {

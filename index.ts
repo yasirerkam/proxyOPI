@@ -28,7 +28,6 @@ export default class ProxyOPI {
 }
 
 async function test() {
-    const options = { protocols: ['https'], anonymityLevels: ['elite', 'anonymous'] };
     const proxyOPI = await ProxyOPI.getInstanceAsync("./data/proxyList.json");
     const proxyList = await proxyOPI.getProxyListAsync();
     // console.log("\nProxy list is:\n", proxyList);
@@ -40,5 +39,5 @@ async function main() {
     });
 }
 
-// main();
+main();
 

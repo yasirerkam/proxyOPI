@@ -7,7 +7,7 @@ export default class ProxyScrapeCom implements ISource {
     readonly sourceSite = "proxyscrape.com";
     // https://docs.proxyscrape.com/#9aa2f904-9b9a-435b-9688-2c4d59413560
 
-    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
+    constructor(public browser: Browser) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
@@ -24,7 +24,8 @@ export default class ProxyScrapeCom implements ISource {
             // for (const anonymityLevel of [AnonymityLevel.transparent, AnonymityLevel.anonymous, AnonymityLevel.elite]) {
             const url: string = `https://api.proxyscrape.com/`;
 
-            const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
+            const context = await this.browser.newContext();
+            context.setDefaultNavigationTimeout(60000);
             const page = await context.newPage();
 
             await page.request.get(url, {
@@ -45,7 +46,7 @@ export default class ProxyScrapeCom implements ISource {
                     }
                 }
                 else
-                    console.error("Response status is not 200 -> " + response.status());
+                    console.error(`\nURL -> ${url}\nResponse status is not 200 -> ${response.status()}`);
             }, err => {
                 console.error(err);
             }).catch(err => {

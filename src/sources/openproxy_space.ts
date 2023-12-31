@@ -7,7 +7,7 @@ export default class OpenproxySpace implements ISource {
 
     readonly sourceSite = "openproxy.space";
 
-    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
+    constructor(public browser: Browser) { }
 
     async getProxyList(): Promise<Proxy[]> {
         // dont use Promise.allSettled. probably site blocking for multiple requests 
@@ -21,7 +21,8 @@ export default class OpenproxySpace implements ISource {
         for (const url of urls) {
             const protocol = url[1] as Protocol;
             try {
-                const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
+                const context = await this.browser.newContext();
+                context.setDefaultNavigationTimeout(60000);
                 const pageFreeProxyCz = await PageOpenproxySpace.constructAsync(context, url[0], this.sourceSite, protocol);
                 await pageFreeProxyCz?.getProxies().then(proxies => {
                     proxyList.push(...proxies);

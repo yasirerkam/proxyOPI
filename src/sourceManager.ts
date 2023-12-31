@@ -32,19 +32,19 @@ export default class SourceManager {
         }
 
         this.sources = [
-            new ProxyScrapeCom(this.browser, this.pageOptions),
-            new ProxyNovaCom(this.browser, this.pageOptions),
-            new HideIpMe(this.browser, this.pageOptions),
-            new ProxyDailyCom(this.browser, this.pageOptions),
-            new PremProxyCom(this.browser, this.pageOptions),
-            new OpenproxySpace(this.browser, this.pageOptions),
-            new MyProxyCom(this.browser, this.pageOptions),
-            new FreeProxyListNet(this.browser, this.pageOptions),
-            new FreeProxyCz(this.browser, this.pageOptions),
-            new CoolProxyNet(this.browser, this.pageOptions),
-            new CheckerProxyNet(this.browser, this.pageOptions),
-            new ProxyListOrg(this.browser, this.pageOptions),
-            // new HideMyIo(this.browser, this.pageOptions), // TODO: cloudflare will be taken care of 
+            new ProxyScrapeCom(this.browser),
+            new ProxyNovaCom(this.browser),
+            new HideIpMe(this.browser),
+            new ProxyDailyCom(this.browser),
+            new PremProxyCom(this.browser),
+            new OpenproxySpace(this.browser),
+            new MyProxyCom(this.browser),
+            new FreeProxyListNet(this.browser),
+            new FreeProxyCz(this.browser),
+            new CoolProxyNet(this.browser),
+            new CheckerProxyNet(this.browser),
+            new ProxyListOrg(this.browser),
+            // new HideMyIo(this.browser), // TODO: cloudflare will be taken care of 
         ];
     }
 
@@ -63,7 +63,7 @@ export default class SourceManager {
 
         for (const source of this.sources) {
             const promise = source.getProxyList().then(proxies => {
-                proxyList.push(...proxies);
+                proxyList = proxyList.concat(proxies);
             });
             promises.push(promise);
         }

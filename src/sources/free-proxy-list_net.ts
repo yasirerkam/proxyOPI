@@ -14,14 +14,15 @@ export default class FreeProxyListNet implements ISource {
     ];
     readonly sourceSite = "free-proxy-list.net";
 
-    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
+    constructor(public browser: Browser) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
         let promises: Promise<void>[] = [];
 
         for (const url of this.urls) {
-            const promise = this.browser.newContext({ extraHTTPHeaders: this.pageOptions }).then(async context => {
+            const promise = this.browser.newContext().then(async context => {
+                context.setDefaultNavigationTimeout(60000);
                 await PageFreeProxyListNet.constructAsync(context, url, this.sourceSite).then(async pageFreeProxyListNet => {
                     await pageFreeProxyListNet?.getProxies().then(proxies => {
                         proxyList.push(...proxies);

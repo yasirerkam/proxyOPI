@@ -1,6 +1,6 @@
 {
   "name": "@yasir.erkam/proxyopi",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "free proxy api",
   "main": "index.js",
@@ -8,9 +8,6 @@
     "build": "tsc",
     "start": "node ."
   },
-  "entryPoints": [
-    "index.ts"
-  ],
   "keywords": [
     "proxy",
     "api",

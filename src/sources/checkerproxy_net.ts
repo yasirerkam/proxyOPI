@@ -31,14 +31,15 @@ export default class CheckerProxyNet implements ISource {
     url: string = "";
     readonly sourceSite: string = "checkerproxy.net";
 
-    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) {
+    constructor(public browser: Browser) {
         this.url = "https://checkerproxy.net/api/archive/" + new Date().toJSON().slice(0, 10);
     }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
 
-        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
+        const context = await this.browser.newContext();
+        context.setDefaultNavigationTimeout(60000);
         const page = await context.newPage();
 
         // await page.goto(this.url);
@@ -67,7 +68,7 @@ export default class CheckerProxyNet implements ISource {
                 }
             }
             else
-                console.error("Response status is not 200 -> " + response.status());
+                console.error(`\nURL -> ${this.url}\nResponse status is not 200 -> ${response.status()}`);
         }, err => {
             console.error(err);
         }).catch(err => {

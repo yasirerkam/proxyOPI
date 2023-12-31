@@ -7,7 +7,7 @@ export default class ProxyDailyCom implements ISource {
 
     readonly sourceSite = "proxy-daily.com";
 
-    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
+    constructor(public browser: Browser) { }
 
     async getProxyList(): Promise<Proxy[]> {
         // dont use Promise.allSettled. probably site blocking for multiple requests 
@@ -15,7 +15,8 @@ export default class ProxyDailyCom implements ISource {
 
         const url = "https://proxy-daily.com/";
         try {
-            const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
+            const context = await this.browser.newContext();
+            context.setDefaultNavigationTimeout(60000);
             const pageFreeProxyCz = await PageProxyDailyCom.constructAsync(context, url, this.sourceSite);
             await pageFreeProxyCz?.getProxies().then(proxies => {
                 proxyList.push(...proxies);

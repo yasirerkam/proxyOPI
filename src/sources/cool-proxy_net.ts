@@ -21,12 +21,13 @@ export default class CoolProxyNet implements ISource {
     readonly url: string = "https://www.cool-proxy.net/proxies.json";
     readonly sourceSite: string = "cool-proxy.net";
 
-    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
+    constructor(public browser: Browser) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
 
-        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
+        const context = await this.browser.newContext();
+        context.setDefaultNavigationTimeout(60000);
         const page = await context.newPage();
 
         // await page.goto(this.url);
@@ -51,7 +52,7 @@ export default class CoolProxyNet implements ISource {
                 }
             }
             else
-                console.error("Response status is not 200 -> " + response.status());
+                console.error(`\nURL -> ${this.url}\nResponse status is not 200 -> ${response.status()}`);
         }, err => {
             console.error(err);
         }).catch(err => {

@@ -8,7 +8,7 @@ export default class FreeProxyCz implements ISource {
     readonly sourceSite = "free-proxy.cz";
     readonly numberOfPages = 5;
 
-    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
+    constructor(public browser: Browser) { }
 
     async getProxyList(): Promise<Proxy[]> {
         // dont use Promise.allSettled. probably site blocking for multiple requests 
@@ -28,7 +28,8 @@ export default class FreeProxyCz implements ISource {
                     const url: string = `http://free-proxy.cz/en/proxylist/country/all/${protocol}/ping/${level}/${pageNumber}`;
 
                     try {
-                        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
+                        const context = await this.browser.newContext({ ignoreHTTPSErrors: true });
+                        context.setDefaultNavigationTimeout(60000);
                         const pageFreeProxyCz = await PageFreeProxyCz.constructAsync(context, url, this.sourceSite, protocol, anonymityLevel);
                         await pageFreeProxyCz?.getProxies().then(proxies => {
                             proxyList.push(...proxies);

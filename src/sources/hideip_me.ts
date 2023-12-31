@@ -12,13 +12,14 @@ export default class HideIpMe implements ISource {
         ["https://raw.githubusercontent.com/zloi-user/hideip.me/main/socks5.txt", Protocol.socks5],
     ];
 
-    constructor(public browser: Browser, public pageOptions: {} | undefined = undefined) { }
+    constructor(public browser: Browser) { }
 
     async getProxyList(): Promise<Proxy[]> {
         const proxyList: Proxy[] = [];
         let promises: Promise<void>[] = [];
 
-        const context = await this.browser.newContext({ extraHTTPHeaders: this.pageOptions });
+        const context = await this.browser.newContext();
+        context.setDefaultNavigationTimeout(60000);
         const page = await context.newPage();
 
         // await page.goto(this.url);
@@ -32,7 +33,7 @@ export default class HideIpMe implements ISource {
                     }
                 }
                 else
-                    console.error("Response status is not 200 -> " + response.status());
+                    console.error(`\nURL -> ${url}\nResponse status is not 200 -> ${response.status()}`);
             }, err => {
                 console.error(err);
             }).catch(err => {
