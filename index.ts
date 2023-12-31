@@ -4,6 +4,7 @@ export default class ProxyOPI {
 
     private static instance: ProxyOPI;
     private proxyProvider!: ProxyProvider;
+
     private constructor() { }
 
     public static async getInstanceAsync(pathProxyList: string) {
@@ -33,9 +34,11 @@ async function test() {
     // console.log("\nProxy list is:\n", proxyList);
 }
 
-(async () => {
+async function main() {
     await test().catch(err => {
         console.error(err);
     });
-})();
+}
+
+// main();
 
