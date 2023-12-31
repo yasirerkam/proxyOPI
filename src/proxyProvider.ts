@@ -12,7 +12,6 @@ export default class ProxyProvider {
     //#region properties
 
     private static instance: ProxyProvider;
-    timeout: number;
     sourceManager!: SourceManager;
 
     //#region CurrentProxy
@@ -34,7 +33,7 @@ export default class ProxyProvider {
         if (save)
             this.writeProxyListObjFile();
     }
-    async getProxyListAsync(options: any): Promise<ProxyList> {
+    async getProxyListAsync(timeout: number = 4 * 60): Promise<ProxyList> {
         if (this.proxyList === undefined || this.proxyList === null) {
             console.log("\nProxy list value is undefined or null.");
             return await this.getNewProxyListAsync();
@@ -47,7 +46,7 @@ export default class ProxyProvider {
             console.log("\nProxy list value is undefined, null or empty.");
             return await this.getNewProxyListAsync();
         }
-        else if ((Date.now() - this.proxyList.dateTime) > this.timeout * 60 * 1000) {
+        else if ((Date.now() - this.proxyList.dateTime) > timeout * 60 * 1000) {
             console.log("\nProxy list is expired.");
             return await this.getNewProxyListAsync();
         }
@@ -85,14 +84,13 @@ export default class ProxyProvider {
 
     //#endregion properties
 
-    private constructor(pathProxyList: string, timeout: number) {
+    private constructor(pathProxyList: string) {
         this.pathProxyList = pathProxyList;
-        this.timeout = timeout;
     }
 
-    static async getInstanceAsync(pathProxyList: string, timeout: number = 4 * 60): Promise<ProxyProvider> {
+    static async getInstanceAsync(pathProxyList: string): Promise<ProxyProvider> {
         if (this.instance === undefined || this.instance === null) {
-            this.instance = new ProxyProvider(pathProxyList, timeout);
+            this.instance = new ProxyProvider(pathProxyList);
 
             await SourceManager.getInstanceAsync().then(async sourceManager => {
                 this.instance.sourceManager = sourceManager;
