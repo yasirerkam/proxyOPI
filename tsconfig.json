@@ -15,8 +15,6 @@
     },
     "include": [
         "./src/**/*.ts",
-        "./index.ts",
-        "declarationFiles/*.d.ts", // declaration file path
     ], // Specify the files to include for compilation
     "exclude": [
         "./node_modules",

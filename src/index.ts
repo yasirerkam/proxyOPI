@@ -1,6 +1,7 @@
-import ProxyProvider from './src/proxyProvider';
+import exp from "constants";
+import ProxyProvider, { ProxyList } from "./proxyProvider";
 
-export default class ProxyOPI {
+export class ProxyOPI {
 
     private static instance: ProxyOPI;
     private proxyProvider!: ProxyProvider;
@@ -17,15 +18,15 @@ export default class ProxyOPI {
         return this.instance;
     }
 
-    async getProxyListAsync(timeout: number = 4 * 60) {
-        if (this.proxyProvider === undefined || this.proxyProvider === null) {
-            console.log("\nProxy provider is undefined or null.");
-            return undefined;
-        }
+    async getProxyListAsync(timeout: number = 4 * 60): Promise<ProxyList> {
+        if (this.proxyProvider === undefined || this.proxyProvider === null)
+            throw new Error("\nProxy provider is undefined or null.");
 
         return await this.proxyProvider.getProxyListAsync(timeout);
     }
 }
+
+export { Proxy, ProxyList } from "./proxyProvider";
 
 async function test() {
     const proxyOPI = await ProxyOPI.getInstanceAsync("./data/proxyList.json");
