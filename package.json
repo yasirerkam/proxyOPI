@@ -2,6 +2,15 @@
   "name": "@yasir.erkam/proxyopi",
   "version": "1.0.13",
   "description": "free proxy api",
+  "homepage": "https://github.com/yasirerkam/proxyOPI#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yasirerkam/proxyOPI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/owner/project/issues",
+    "email": "yasir.erkam@gmail.com"
+  },
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "files": [
