@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Program",
+            "name": "Launch Program (DEBUG)",
             "type": "node",
             "sourceMaps": true,
             "cwd": "${workspaceRoot}",
@@ -13,7 +13,7 @@
             "program": "${workspaceRoot}/src/index.ts",
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
+                "${workspaceFolder}/distDEV/**/*.js"
             ],
             "skipFiles": [
                 "<node_internals>/**",
@@ -22,6 +22,23 @@
             "console": "integratedTerminal",
             "env": {
                 "NODE_ENV": "development"
+            },
+        },
+        {
+            "name": "Launch Program (PRODUCTION)",
+            "type": "node",
+            "sourceMaps": false,
+            "cwd": "${workspaceRoot}",
+            "request": "launch",
+            "program": "${workspaceRoot}/src/index.ts",
+            "preLaunchTask": "tsc: build - tsconfig.production.json",
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/**",
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "NODE_ENV": "production"
             },
         }
     ]

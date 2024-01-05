@@ -1,9 +1,9 @@
 {
   "name": "@yasir.erkam/proxyopi",
-  "version": "1.0.11",
+  "version": "1.0.13",
   "description": "free proxy api",
-  "main": "dist/index",
-  "types": "dist/index",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "files": [
     "dist",
     "package.json",
@@ -11,9 +11,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc --declaration",
-    "start": "node dist/index.js",
-    "debug": "node --inspect dist/index.js"
+    "start": "node dist/src/index.js",
+    "debug": "node --inspect dist/src/index.js"
   },
   "keywords": [
     "proxy",
