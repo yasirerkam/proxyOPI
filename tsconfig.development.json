@@ -1,19 +1,17 @@
 {
+    "extends": "@tsconfig/node-lts/tsconfig.json",
     "compilerOptions": {
-        "target": "ES2022", // Set the target ECMAScript version
-        "module": "NodeNext", // Specify module code generation
+        "rootDir": "./src", // Set the root directory for input files
         "outDir": "./distDEV", // Set the output directory for compiled files
-        "strict": true, // Enable strict type checking
         "alwaysStrict": true, // Parse in strict mode and emit "use strict" for each source file
         "declaration": true, // Generate a declaration file in addition to the js file
         "composite": true, // Enable constraints that allow a TypeScript project to be used with project references
         "sourceMap": true, // Enable sourcemaps for debugging
-        "esModuleInterop": true, // Enable interoperability between CommonJS and ES Modules via creation of namespace objects for all imports
         "paths": {
             "*": [
                 "./node_modules/*"
             ] // Allow importing modules from the node_modules directory
-        }
+        },
     },
     "include": [
         "./src/**/*.ts"

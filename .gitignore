@@ -131,7 +131,7 @@ dist
 
 # ------------------------------------------------------------------------------
 
-CODE_OF_CONDUCT.md
+/CODE_OF_CONDUCT.md
 /test-results/
 /playwright-report/
 /blob-report/

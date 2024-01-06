@@ -1,4 +1,3 @@
-import exp from "constants";
 import ProxyProvider, { ProxyList } from "./proxyProvider";
 
 export class ProxyOPI {

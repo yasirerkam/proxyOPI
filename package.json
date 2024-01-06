@@ -1,6 +1,6 @@
 {
   "name": "@yasir.erkam/proxyopi",
-  "version": "1.0.15",
+  "version": "1.0.0",
   "description": "free proxy api",
   "homepage": "https://github.com/yasirerkam/proxyOPI#readme",
   "repository": {
@@ -11,8 +11,8 @@
     "url": "https://github.com/owner/project/issues",
     "email": "yasir.erkam@gmail.com"
   },
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "package.json",
@@ -20,8 +20,8 @@
     "README.md"
   ],
   "scripts": {
-    "start": "node dist/src/index.js",
-    "debug": "node --inspect dist/src/index.js"
+    "start": "node dist/index.js",
+    "debug": "node --inspect dist/index.js"
   },
   "keywords": [
     "proxy",
@@ -35,7 +35,8 @@
   ],
   "author": "Yasir Erkam Özdemir",
   "devDependencies": {
-    "@types/node": "^20.10.4",
+    "@tsconfig/node-lts": "^20.1.1",
+    "@types/node": "^20.10.6",
     "typescript": "^5.3.3"
   },
   "dependencies": {
