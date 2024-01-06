@@ -1,5 +1,5 @@
-import fs from 'node:fs';
-import path from 'path';
+import fs from "node:fs";
+import path from "path";
 
 export default class JsonFileOps {
 
