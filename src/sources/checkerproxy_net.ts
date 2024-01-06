@@ -1,6 +1,6 @@
 import { Browser } from "playwright-core";
-import { Proxy, AnonymityLevel, Protocol } from "../proxyProvider";
-import ISource from "./iSource";
+import { Proxy, AnonymityLevel, Protocol } from "../proxyProvider.js";
+import ISource from "./iSource.js";
 
 type ProxyCheckerPN = {
     id?: number,

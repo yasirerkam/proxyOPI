@@ -30,8 +30,11 @@
             "sourceMaps": false,
             "cwd": "${workspaceRoot}",
             "request": "launch",
-            "program": "${workspaceRoot}/src/index.ts",
+            "program": "${workspaceRoot}/dist/index.js",
             "preLaunchTask": "tsc: build - tsconfig.production.json",
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ],
             "skipFiles": [
                 "<node_internals>/**",
                 "**/node_modules/**",

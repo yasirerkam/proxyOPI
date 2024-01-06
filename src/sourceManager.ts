@@ -1,20 +1,20 @@
 import { chromium, Browser } from "playwright-core";
-import { Proxy } from "./proxyProvider";
-import ISource from "./sources/iSource";
-import JsonFileOps from './jsonFileOps';
-import HideMyIo from "./sources/hidemy_io";
-import ProxyListOrg from "./sources/proxy-list_org";
-import CheckerProxyNet from "./sources/checkerproxy_net";
-import CoolProxyNet from "./sources/cool-proxy_net";
-import FreeProxyCz from "./sources/free-proxy_cz";
-import FreeProxyListNet from "./sources/free-proxy-list_net";
-import MyProxyCom from "./sources/my-proxy_com";
-import OpenproxySpace from "./sources/openproxy_space";
-import PremProxyCom from "./sources/premproxy_com";
-import ProxyDailyCom from "./sources/proxy-daily_com";
-import HideIpMe from "./sources/hideip_me";
-import ProxyNovaCom from "./sources/proxynova_com";
-import ProxyScrapeCom from "./sources/proxyscrape_com";
+import { Proxy } from "./proxyProvider.js";
+import ISource from "./sources/iSource.js";
+import JsonFileOps from "./jsonFileOps.js";
+import HideMyIo from "./sources/hidemy_io.js";
+import ProxyListOrg from "./sources/proxy-list_org.js";
+import CheckerProxyNet from "./sources/checkerproxy_net.js";
+import CoolProxyNet from "./sources/cool-proxy_net.js";
+import FreeProxyCz from "./sources/free-proxy_cz.js";
+import FreeProxyListNet from "./sources/free-proxy-list_net.js";
+import MyProxyCom from "./sources/my-proxy_com.js";
+import OpenproxySpace from "./sources/openproxy_space.js";
+import PremProxyCom from "./sources/premproxy_com.js";
+import ProxyDailyCom from "./sources/proxy-daily_com.js";
+import HideIpMe from "./sources/hideip_me.js";
+import ProxyNovaCom from "./sources/proxynova_com.js";
+import ProxyScrapeCom from "./sources/proxyscrape_com.js";
 
 
 export default class SourceManager {

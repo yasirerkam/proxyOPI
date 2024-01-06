@@ -1,7 +1,7 @@
 import { Browser } from "playwright-core";
-import { AnonymityLevel, Protocol, Proxy } from "../proxyProvider";
-import ISource from "./iSource";
-import PageProxyDailyCom from "./pages/pageProxyDailyCom";
+import { AnonymityLevel, Protocol, Proxy } from "../proxyProvider.js";
+import ISource from "./iSource.js";
+import PageProxyDailyCom from "./pages/pageProxyDailyCom.js";
 
 export default class ProxyDailyCom implements ISource {
 

@@ -1,7 +1,7 @@
 import { Browser } from "playwright-core";
-import { Proxy } from "../proxyProvider";
-import ISource from "./iSource";
-import PageProxyNovaCom from "./pages/pageProxyNovaCom";
+import { Proxy } from "../proxyProvider.js";
+import ISource from "./iSource.js";
+import PageProxyNovaCom from "./pages/pageProxyNovaCom.js";
 
 export default class ProxyNovaCom implements ISource {
 

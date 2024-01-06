@@ -11,6 +11,7 @@
     "url": "https://github.com/owner/project/issues",
     "email": "yasir.erkam@gmail.com"
   },
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

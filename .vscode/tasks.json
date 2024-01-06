@@ -3,22 +3,22 @@
 	"tasks": [
 		{
 			"type": "typescript",
-			"tsconfig": "tsconfig.json",
+			"tsconfig": "tsconfig.development.json",
 			"problemMatcher": [
 				"$tsc"
 			],
 			"group": "build",
-			"label": "tsc: build - tsconfig.json"
+			"label": "tsc: build - tsconfig.development.json"
 		},
 		{
 			"type": "typescript",
-			"tsconfig": "tsconfig.json",
+			"tsconfig": "tsconfig.development.json",
 			"option": "watch",
 			"problemMatcher": [
 				"$tsc-watch"
 			],
 			"group": "build",
-			"label": "tsc: watch - tsconfig.json"
+			"label": "tsc: watch - tsconfig.development.json"
 		},
 		{
 			"type": "typescript",

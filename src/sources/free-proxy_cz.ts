@@ -1,7 +1,7 @@
 import { Browser } from "playwright-core";
-import { AnonymityLevel, Protocol, Proxy } from "../proxyProvider";
-import ISource from "./iSource";
-import PageFreeProxyCz from "./pages/pageFreeProxyCz";
+import { AnonymityLevel, Protocol, Proxy } from "../proxyProvider.js";
+import ISource from "./iSource.js";
+import PageFreeProxyCz from "./pages/pageFreeProxyCz.js";
 
 export default class FreeProxyCz implements ISource {
 

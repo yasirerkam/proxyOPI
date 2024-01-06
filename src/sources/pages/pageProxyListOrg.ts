@@ -1,7 +1,7 @@
 import { Page } from "playwright-core";
-import { Proxy, Protocol, AnonymityLevel } from "../../proxyProvider";
+import { Proxy, Protocol, AnonymityLevel } from "../../proxyProvider.js";
 import { BrowserContext } from "playwright-core";
-import IPage from "./iPage";
+import IPage from "./iPage.js";
 
 export default class PageProxyListOrg implements IPage {
     constructor(public url: string, private page: Page, private sourceSite: string) { }

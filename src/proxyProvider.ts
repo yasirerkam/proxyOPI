@@ -1,6 +1,6 @@
-import path from 'path';
-import JsonFileOps from './jsonFileOps';
-import SourceManager from './sourceManager';
+import path from "path";
+import JsonFileOps from "./jsonFileOps.js";
+import SourceManager from "./sourceManager.js";
 
 export const enum AnonymityLevel { transparent = "transparent", anonymous = "anonymous", elite = "elite", unknown = "unknown" }
 export const enum Protocol { http = "http", https = "https", socks4 = "socks4", socks5 = "socks5", unknown = "unknown" }

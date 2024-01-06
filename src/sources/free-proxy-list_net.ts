@@ -1,7 +1,7 @@
 import { Browser } from "playwright-core";
-import { Proxy } from "../proxyProvider";
-import ISource from "./iSource";
-import PageFreeProxyListNet from "./pages/pageFreeProxyListNet";
+import { Proxy } from "../proxyProvider.js";
+import ISource from "./iSource.js";
+import PageFreeProxyListNet from "./pages/pageFreeProxyListNet.js";
 
 export default class FreeProxyListNet implements ISource {
 

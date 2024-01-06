@@ -1,6 +1,6 @@
 import { Page } from "playwright-core";
-import { Proxy, Protocol, AnonymityLevel } from "../../proxyProvider";
-import IPage from "./iPage";
+import { Proxy, Protocol, AnonymityLevel } from "../../proxyProvider.js";
+import IPage from "./iPage.js";
 import { BrowserContext } from "playwright-core";
 
 export default class PageFreeProxyCz implements IPage {

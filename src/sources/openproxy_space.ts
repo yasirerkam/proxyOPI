@@ -1,7 +1,7 @@
 import { Browser } from "playwright-core";
-import { AnonymityLevel, Protocol, Proxy } from "../proxyProvider";
-import ISource from "./iSource";
-import PageOpenproxySpace from "./pages/pageOpenproxySpace";
+import { AnonymityLevel, Protocol, Proxy } from "../proxyProvider.js";
+import ISource from "./iSource.js";
+import PageOpenproxySpace from "./pages/pageOpenproxySpace.js";
 
 export default class OpenproxySpace implements ISource {
 

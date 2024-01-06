@@ -1,7 +1,7 @@
 import { Browser } from "playwright-core";
-import { Proxy } from "../proxyProvider";
-import ISource from "./iSource";
-import PageHideMyIo from "./pages/pageHideMyIo";
+import { Proxy } from "../proxyProvider.js";
+import ISource from "./iSource.js";
+import PageHideMyIo from "./pages/pageHideMyIo.js";
 
 export default class HideMyIo implements ISource {
 

@@ -2,10 +2,9 @@
     "extends": "@tsconfig/node-lts/tsconfig.json",
     "compilerOptions": {
         "rootDir": "./src", // Set the root directory for input files
-        "outDir": "./distDEV", // Set the output directory for compiled files
-        "alwaysStrict": true, // Parse in strict mode and emit "use strict" for each source file
+        "outDir": "./distDEV", // Set the output directory for compiled files,
+        "strict": true, // Enable all strict type-checking options
         "declaration": true, // Generate a declaration file in addition to the js file
-        "composite": true, // Enable constraints that allow a TypeScript project to be used with project references
         "sourceMap": true, // Enable sourcemaps for debugging
         "paths": {
             "*": [

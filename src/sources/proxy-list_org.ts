@@ -1,7 +1,7 @@
 import { Browser } from "playwright-core";
-import { Proxy } from "../proxyProvider";
-import ISource from "./iSource";
-import PageProxyListOrg from "./pages/pageProxyListOrg";
+import { Proxy } from "../proxyProvider.js";
+import ISource from "./iSource.js";
+import PageProxyListOrg from "./pages/pageProxyListOrg.js";
 
 export default class ProxyListOrg implements ISource {
 
