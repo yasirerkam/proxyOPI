@@ -1,5 +1,5 @@
 import { Page } from "playwright-core";
-import { Proxy, Protocol, AnonymityLevel } from "../../proxyProvider.js";
+import { Proxy, Protocol, AnonymityLevel } from "../../types.js";
 import IPage from "./iPage.js";
 import { BrowserContext } from "playwright-core";
 

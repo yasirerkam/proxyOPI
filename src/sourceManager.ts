@@ -1,5 +1,5 @@
 import { chromium, Browser } from "playwright-core";
-import { Proxy } from "./proxyProvider.js";
+import { Proxy } from "./types.js";
 import ISource from "./sources/iSource.js";
 import JsonFileOps from "./jsonFileOps.js";
 import HideMyIo from "./sources/hidemy_io.js";

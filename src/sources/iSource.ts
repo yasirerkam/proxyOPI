@@ -1,5 +1,5 @@
 import { Browser } from "playwright-core";
-import { Proxy } from "../proxyProvider.js";
+import { Proxy } from "../types.js";
 
 export default interface ISource {
     readonly sourceSite: string;

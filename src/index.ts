@@ -1,4 +1,5 @@
-import ProxyProvider, { ProxyList } from "./proxyProvider.js";
+import ProxyProvider from "./proxyProvider.js";
+import { ProxyList } from "./types.js";
 
 export class ProxyOPI {
 
@@ -25,7 +26,7 @@ export class ProxyOPI {
     }
 }
 
-export { Proxy, ProxyList } from "./proxyProvider.js";
+export * from "./types.js";
 
 async function test() {
     const proxyOPI = await ProxyOPI.getInstanceAsync("./data/proxyList.json");

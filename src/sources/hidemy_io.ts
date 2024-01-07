@@ -1,5 +1,5 @@
 import { Browser } from "playwright-core";
-import { Proxy } from "../proxyProvider.js";
+import { Proxy } from "../types.js";
 import ISource from "./iSource.js";
 import PageHideMyIo from "./pages/pageHideMyIo.js";
 

@@ -1,5 +1,5 @@
 import { Browser } from "playwright-core";
-import { Proxy, AnonymityLevel, Protocol } from "../proxyProvider.js";
+import { Proxy, AnonymityLevel, Protocol } from "../types.js";
 import ISource from "./iSource.js";
 
 // all http proxies
