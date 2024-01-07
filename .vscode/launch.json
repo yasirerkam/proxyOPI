@@ -11,7 +11,7 @@
             "cwd": "${workspaceRoot}",
             "request": "launch",
             "program": "${workspaceRoot}/src/index.ts",
-            "preLaunchTask": "tsc: build - tsconfig.development.json",
+            "preLaunchTask": "tsc: clean and build - tsconfig.development.json",
             "outFiles": [
                 "${workspaceFolder}/distDEV/**/*.js"
             ],
@@ -31,7 +31,7 @@
             "cwd": "${workspaceRoot}",
             "request": "launch",
             "program": "${workspaceRoot}/dist/index.js",
-            "preLaunchTask": "tsc: build - tsconfig.production.json",
+            "preLaunchTask": "tsc: clean and build - tsconfig.production.json",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
             ],

@@ -2,6 +2,16 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "CleanUp_distDEV",
+			"type": "shell",
+			"command": "tsc",
+			"args": [
+				"--build",
+				"--clean",
+				"tsconfig.development.json"
+			]
+		},
+		{
 			"type": "typescript",
 			"tsconfig": "tsconfig.development.json",
 			"problemMatcher": [
@@ -9,6 +19,14 @@
 			],
 			"group": "build",
 			"label": "tsc: build - tsconfig.development.json"
+		},
+		{
+			"label": "tsc: clean and build - tsconfig.development.json",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"CleanUp_distDEV",
+				"tsc: build - tsconfig.development.json"
+			]
 		},
 		{
 			"type": "typescript",
@@ -21,6 +39,24 @@
 			"label": "tsc: watch - tsconfig.development.json"
 		},
 		{
+			"label": "tsc: clean and watch - tsconfig.development.json",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"CleanUp_distDEV",
+				"tsc: watch - tsconfig.development.json"
+			]
+		},
+		{
+			"label": "CleanUp_dist",
+			"type": "shell",
+			"command": "tsc",
+			"args": [
+				"--build",
+				"--clean",
+				"tsconfig.production.json"
+			]
+		},
+		{
 			"type": "typescript",
 			"tsconfig": "tsconfig.production.json",
 			"problemMatcher": [
@@ -28,6 +64,14 @@
 			],
 			"group": "build",
 			"label": "tsc: build - tsconfig.production.json"
+		},
+		{
+			"label": "tsc: clean and build - tsconfig.production.json",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"CleanUp_dist",
+				"tsc: build - tsconfig.production.json"
+			]
 		},
 		{
 			"type": "typescript",
@@ -38,6 +82,14 @@
 			],
 			"group": "build",
 			"label": "tsc: watch - tsconfig.production.json"
+		},
+		{
+			"label": "tsc: clean and watch - tsconfig.production.json",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"CleanUp_dist",
+				"tsc: watch - tsconfig.production.json"
+			]
 		}
 	]
 }
