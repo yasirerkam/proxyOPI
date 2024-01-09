@@ -131,12 +131,11 @@ dist
 
 # ------------------------------------------------------------------------------
 
-/CODE_OF_CONDUCT.md
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-/data/pageOptions.json
 /data/screenshots/*
 /data/proxyList.json
 /distDev
+/data/browserContextOptions.json
