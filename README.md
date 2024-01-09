@@ -1,5 +1,6 @@
 # Proxy OPI
 
+## TypeScript example
 ```	Typescript
 import { ProxyOPI, Proxy, ProxyList, Protocol } from "@yasir.erkam/proxyopi";
 

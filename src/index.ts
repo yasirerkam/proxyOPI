@@ -27,18 +27,3 @@ export class ProxyOPI {
 }
 
 export * from "./types.js";
-
-async function test() {
-    const proxyOPI = await ProxyOPI.getInstanceAsync("./data/proxyList.json");
-    const proxyList = await proxyOPI.getProxyListAsync(0);
-    // console.log("\nProxy list is:\n", proxyList);
-}
-
-async function main() {
-    return await test().catch(err => {
-        return console.error("\n" + err);
-    });
-}
-
-// main();
-// console.error("end");
