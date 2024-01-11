@@ -1,6 +1,6 @@
 {
   "name": "@yasir.erkam/proxyopi",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "free proxy api",
   "homepage": "https://github.com/yasirerkam/proxyOPI#readme",
   "repository": {
@@ -29,10 +29,18 @@
     "api",
     "free",
     "proxyapi",
+    "proxy-api",
     "proxies",
+    "proxy-list",
     "proxylist",
+    "proxy-list-api",
     "proxylistapi",
-    "proxylistfree"
+    "proxy-list-free",
+    "proxylistfree",
+    "proxy-scraper",
+    "proxy-extractor",
+    "proxy-extractor-api",
+    "proxy-list-extractor"
   ],
   "author": "Yasir Erkam Özdemir",
   "devDependencies": {
