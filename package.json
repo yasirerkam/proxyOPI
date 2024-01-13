@@ -1,6 +1,6 @@
 {
   "name": "@yasir.erkam/proxyopi",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "free proxy api",
   "homepage": "https://github.com/yasirerkam/proxyOPI#readme",
   "repository": {
@@ -12,19 +12,20 @@
     "email": "yasir.erkam@gmail.com"
   },
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "files": [
     "dist",
-    "test",
     "package.json",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md",
+    "jest.config.mjs"
   ],
   "scripts": {
-    "start": "node dist/index.js",
-    "debug": "node --inspect dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "start": "node dist/src/index.js",
+    "debug": "node --inspect dist/src/index.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [
     "proxy",

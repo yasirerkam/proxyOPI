@@ -1,7 +1,6 @@
 {
     "extends": "@tsconfig/node-lts/tsconfig.json",
     "compilerOptions": {
-        "rootDir": "./src", // Set the root directory for input files
         "outDir": "./dist", // Set the output directory for compiled files
         "strict": true, // Enable all strict type-checking options
         "declaration": true, // Generate a declaration file in addition to the js file
@@ -13,10 +12,12 @@
         },
     },
     "include": [
-        "./src/**/*.ts"
+        "./src/**/*.ts",
+        "./__tests__/**/*.ts"
     ], // Specify the files to include for compilation
     "exclude": [
         "./node_modules",
-        "./src/**/*.spec.ts"
+        "./src/**/*.spec.ts",
+        "./src/**/*.test.ts"
     ] // Specify the files to exclude from compilation (tests)
 }
