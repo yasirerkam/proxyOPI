@@ -12,6 +12,8 @@
   <a href="https://github.com/yasirerkam/proxyOPI/" target="_blank">
     <img alt="GitHub contributors" src="https://img.shields.io/github/contributors-anon/yasirerkam/proxyOPI">
    </a>
+   
+   <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/%40yasir.erkam%2Fproxyopi">
 </p>
 
 > free proxy api
