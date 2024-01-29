@@ -39,6 +39,7 @@ Fetch free proxies from:
   - https://proxy-list.org
   - https://www.proxynova.com
   - https://proxyscrape.com
+  - more...
 
 ## Install
 
