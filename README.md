@@ -16,19 +16,34 @@
    <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/%40yasir.erkam%2Fproxyopi">
 </p>
 
-> free proxy api
+> Free Proxy API
 
 ### 🏠 [Homepage](https://github.com/yasirerkam/proxyOPI#readme)
+
+## Sources of Proxies
+Fetch free proxies from:
+  - https://checkerproxy.net
+  - https://www.cool-proxy.net
+  - http://free-proxy.cz
+  - https://www.us-proxy.org
+  - https://www.sslproxies.org
+  - https://free-proxy-list.net
+  - https://free-proxy-list.net/uk-proxy.html
+  - https://free-proxy-list.net/anonymous-proxy.html
+  - https://raw.githubusercontent.com/zloi-user/hideip.me
+  - https://hidemy.io
+  - https://www.my-proxy.com
+  - https://openproxy.space
+  - https://premproxy.com
+  - https://proxy-daily.com
+  - https://proxy-list.org
+  - https://www.proxynova.com
+  - https://proxyscrape.com
 
 ## Install
 
 ```sh
 npm i @yasir.erkam/proxyopi
-```
-
-## Usage
-
-```Typescript
 ```
 
 ## Example
