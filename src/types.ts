@@ -5,6 +5,6 @@ enum AnonymityLevel { transparent = "transparent", anonymous = "anonymous", elit
 
 type Proxy = { ipAddress: string, port: number, protocols: Protocol[], source: string, anonymityLevel?: AnonymityLevel, lastTested?: string, country?: string, city?: string, isp?: string, speed?: string, uptime?: string, responseTime?: string, verified?: string, };
 
-type ProxyList = { dateTime: number, list: Proxy[] };
+type ProxyListTS = { dateTime: number, list: Proxy[] };
 
-export { Protocol, AnonymityLevel, Proxy, ProxyList };
+export { Protocol, AnonymityLevel, Proxy, ProxyListTS };

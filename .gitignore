@@ -136,6 +136,6 @@ dist
 /blob-report/
 /playwright/.cache/
 /data/screenshots/*
-/data/proxyList.json
+/data/proxyListTS.json
 /distDev
 /data/browserContextOptions.json

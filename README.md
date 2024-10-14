@@ -50,12 +50,12 @@ npm i @yasir.erkam/proxyopi
 ## Example
 
 ```	Typescript
-import { ProxyOPI, Proxy, ProxyList, Protocol } from "@yasir.erkam/proxyopi";
+import { ProxyOPI, Proxy, ProxyListTS, Protocol } from "@yasir.erkam/proxyopi";
 
-const proxyOPI = await ProxyOPI.getInstanceAsync("./path/to/proxyList.json");
-const proxyList = await proxyOPI.getProxyListAsync();
+const proxyOPI = await ProxyOPI.getInstanceAsync("./path/to/proxyListTS.json");
+const proxyListTS = await proxyOPI.getProxyListAsync();
 
-const list = proxyList.list.filter((proxy: Proxy) => proxy.protocols[0] === Protocol.http || proxy.protocols[0] === Protocol.https);
+const list = proxyListTS.list.filter((proxy: Proxy) => proxy.protocols[0] === Protocol.http || proxy.protocols[0] === Protocol.https);
 console.log(list);
 ```	
 

@@ -1,5 +1,5 @@
 import ProxyProvider from "./proxyProvider.js";
-import { ProxyList } from "./types.js";
+import { ProxyListTS } from "./types.js";
 
 export class ProxyOPI {
 
@@ -18,7 +18,7 @@ export class ProxyOPI {
         return this.instance;
     }
 
-    async getProxyListAsync(timeout: number = 4 * 60): Promise<ProxyList> {
+    async getProxyListAsync(timeout: number = 4 * 60): Promise<ProxyListTS> {
         if (this.proxyProvider === undefined || this.proxyProvider === null)
             throw new Error("\nProxy provider is undefined or null.");
 
