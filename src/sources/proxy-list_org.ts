@@ -6,7 +6,7 @@ import PageProxyListOrg from "./pages/pageProxyListOrg.js";
 export default class ProxyListOrg implements ISource {
 
     readonly url = "https://proxy-list.org/english/index.php";
-    readonly sourceSite = "proxy-list.org";
+    readonly source = "proxy-list.org";
     readonly numberOfPages = 10;
 
     constructor(public browser: Browser, private browserContextOptions?: any) { }
@@ -19,7 +19,7 @@ export default class ProxyListOrg implements ISource {
             const urlStr = this.url + "?p=" + i;
             const promise = this.browser.newContext(this.browserContextOptions).then(async context => {
                 context.setDefaultNavigationTimeout(60000);
-                await PageProxyListOrg.constructAsync(context, urlStr, this.sourceSite).then(async pageFreeProxyListNet => {
+                await PageProxyListOrg.constructAsync(context, urlStr, this.source).then(async pageFreeProxyListNet => {
                     await pageFreeProxyListNet?.getProxies().then(proxies => {
                         proxyList.push(...proxies);
                     });

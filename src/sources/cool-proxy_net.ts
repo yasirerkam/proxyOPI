@@ -19,7 +19,7 @@ type ProxyCoolPN = {
 export default class CoolProxyNet implements ISource {
 
     readonly url: string = "https://www.cool-proxy.net/proxies.json";
-    readonly sourceSite: string = "cool-proxy.net";
+    readonly source: string = "cool-proxy.net";
 
     constructor(public browser: Browser, private browserContextOptions?: any) { }
 
@@ -48,7 +48,7 @@ export default class CoolProxyNet implements ISource {
                 const proxies: ProxyCoolPN[] = await response.json();
                 for (let i = 0; i < proxies.length; i++) {
                     const proxy = proxies[i];
-                    proxyList.push({ ip: proxy.ip, port: proxy.port.toString(), protocols: [Protocol.http], sourceSite: this.sourceSite, anonymityLevel: proxy.anonymous == 1 ? AnonymityLevel.anonymous : AnonymityLevel.transparent, country: proxy.country_code, speed: proxy.download_speed_average?.toString(), uptime: proxy.working_average?.toString(), responseTime: proxy.response_time_average?.toString(), verified: proxy.update_time?.toString() }); // check this later whether equivalent
+                    proxyList.push({ ipAddress: proxy.ip, port: proxy.port, protocols: [Protocol.http], source: this.source, anonymityLevel: proxy.anonymous == 1 ? AnonymityLevel.anonymous : AnonymityLevel.transparent, country: proxy.country_code, speed: proxy.download_speed_average?.toString(), uptime: proxy.working_average?.toString(), responseTime: proxy.response_time_average?.toString(), verified: proxy.update_time?.toString() }); // check this later whether equivalent
                 }
             }
             else

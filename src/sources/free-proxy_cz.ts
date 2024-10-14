@@ -5,7 +5,7 @@ import PageFreeProxyCz from "./pages/pageFreeProxyCz.js";
 
 export default class FreeProxyCz implements ISource {
 
-    readonly sourceSite = "free-proxy.cz";
+    readonly source = "free-proxy.cz";
     readonly numberOfPages = 5;
 
     constructor(public browser: Browser, private browserContextOptions?: any) { }
@@ -30,7 +30,7 @@ export default class FreeProxyCz implements ISource {
                     try {
                         const context = await this.browser.newContext({ ignoreHTTPSErrors: true, ...this.browserContextOptions });
                         context.setDefaultNavigationTimeout(60000);
-                        const pageFreeProxyCz = await PageFreeProxyCz.constructAsync(context, url, this.sourceSite, protocol, anonymityLevel);
+                        const pageFreeProxyCz = await PageFreeProxyCz.constructAsync(context, url, this.source, protocol, anonymityLevel);
                         await pageFreeProxyCz?.getProxies().then(proxies => {
                             proxyList.push(...proxies);
                         });

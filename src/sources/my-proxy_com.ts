@@ -22,7 +22,7 @@ export default class MyProxyCom implements ISource {
         ["https://www.my-proxy.com/free-proxy-list-9.html", Protocol.http, AnonymityLevel.unknown],
         ["https://www.my-proxy.com/free-proxy-list-10.html", Protocol.http, AnonymityLevel.unknown],
     ];
-    readonly sourceSite = "my-proxy.com";
+    readonly source = "my-proxy.com";
 
     constructor(public browser: Browser, private browserContextOptions?: any) { }
 
@@ -33,7 +33,7 @@ export default class MyProxyCom implements ISource {
         for (const url of this.urls) {
             const promise = this.browser.newContext(this.browserContextOptions).then(async context => {
                 context.setDefaultNavigationTimeout(60000);
-                await PageMyProxyCom.constructAsync(context, url[0], this.sourceSite, url[1] as Protocol, url[2] as AnonymityLevel).then(async pageFreeProxyListNet => {
+                await PageMyProxyCom.constructAsync(context, url[0], this.source, url[1] as Protocol, url[2] as AnonymityLevel).then(async pageFreeProxyListNet => {
                     await pageFreeProxyListNet?.getProxies().then(proxies => {
                         proxyList.push(...proxies);
                     });

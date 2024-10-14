@@ -5,7 +5,7 @@ import PageProxyDailyCom from "./pages/pageProxyDailyCom.js";
 
 export default class ProxyDailyCom implements ISource {
 
-    readonly sourceSite = "proxy-daily.com";
+    readonly source = "proxy-daily.com";
 
     constructor(public browser: Browser, private browserContextOptions?: any) { }
 
@@ -17,7 +17,7 @@ export default class ProxyDailyCom implements ISource {
         try {
             const context = await this.browser.newContext(this.browserContextOptions);
             context.setDefaultNavigationTimeout(60000);
-            const pageFreeProxyCz = await PageProxyDailyCom.constructAsync(context, url, this.sourceSite);
+            const pageFreeProxyCz = await PageProxyDailyCom.constructAsync(context, url, this.source);
             await pageFreeProxyCz?.getProxies().then(proxies => {
                 proxyList.push(...proxies);
             });

@@ -29,7 +29,7 @@ type ProxyCheckerPN = {
 export default class CheckerProxyNet implements ISource {
 
     url: string = "";
-    readonly sourceSite: string = "checkerproxy.net";
+    readonly source: string = "checkerproxy.net";
 
     constructor(public browser: Browser, private browserContextOptions?: any) {
         this.url = "https://checkerproxy.net/api/archive/" + new Date().toJSON().slice(0, 10);
@@ -64,7 +64,7 @@ export default class CheckerProxyNet implements ISource {
                     let types: Protocol[] = this.transformProtocol(proxy.type ?? 0);
                     let kind: AnonymityLevel = this.transformAnonymityLevel(proxy.kind ?? 0);
 
-                    proxyList.push({ ip: ipPort[0], port: ipPort[1], protocols: types, sourceSite: this.sourceSite, anonymityLevel: kind, country: proxy.addr_geo_iso, city: proxy.addr_geo_city, lastTested: proxy.updated_at }); // check this later whether equivalent
+                    proxyList.push({ ipAddress: ipPort[0], port: Number(ipPort[1]), protocols: types, source: this.source, anonymityLevel: kind, country: proxy.addr_geo_iso, city: proxy.addr_geo_city, lastTested: proxy.updated_at }); // check this later whether equivalent
                 }
             }
             else

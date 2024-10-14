@@ -5,7 +5,7 @@ import PageHideMyIo from "./pages/pageHideMyIo.js";
 
 export default class HideMyIo implements ISource {
 
-    readonly sourceSite = "hidemy.io";
+    readonly source = "hidemy.io";
     readonly numberOfPages = 200;
 
     constructor(public browser: Browser, private browserContextOptions?: any) { }
@@ -33,7 +33,7 @@ export default class HideMyIo implements ISource {
                 });
                 context.setDefaultNavigationTimeout(60000);
                 let url = `https://hidemy.io/en/proxy-list/?start=${i * 64}#list`;
-                const pageHideMyIo = await PageHideMyIo.constructAsync(context, url, this.sourceSite);
+                const pageHideMyIo = await PageHideMyIo.constructAsync(context, url, this.source);
                 await pageHideMyIo?.getProxies().then(proxies => {
                     proxyList.push(...proxies);
                 });

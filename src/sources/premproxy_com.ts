@@ -5,7 +5,7 @@ import PagePremProxyCom from "./pages/pagePremProxyCom.js";
 
 export default class PremProxyCom implements ISource {
 
-    readonly sourceSite = "premproxy.com";
+    readonly source = "premproxy.com";
     readonly numberOfPages = 10;
 
     constructor(public browser: Browser, private browserContextOptions?: any) { }
@@ -19,7 +19,7 @@ export default class PremProxyCom implements ISource {
             try {
                 const context = await this.browser.newContext(this.browserContextOptions);
                 context.setDefaultNavigationTimeout(60000);
-                const pagePremProxyCom = await PagePremProxyCom.constructAsync(context, url, this.sourceSite);
+                const pagePremProxyCom = await PagePremProxyCom.constructAsync(context, url, this.source);
                 await pagePremProxyCom?.getProxies().then(proxies => {
                     proxyList.push(...proxies);
                 });

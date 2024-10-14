@@ -4,7 +4,7 @@ import ISource from "./iSource.js";
 
 export default class ProxyScrapeCom implements ISource {
 
-    readonly sourceSite = "proxyscrape.com";
+    readonly source = "proxyscrape.com";
     // https://docs.proxyscrape.com/#9aa2f904-9b9a-435b-9688-2c4d59413560
 
     constructor(public browser: Browser, private browserContextOptions?: any) { }
@@ -42,7 +42,7 @@ export default class ProxyScrapeCom implements ISource {
                     for (let i = 0; i < proxies.length; i++) {
                         const ipPort = proxies[i].trim().split(":");
 
-                        proxyList.push({ ip: ipPort[0], port: ipPort[1], protocols: [protocol], sourceSite: this.sourceSite, anonymityLevel: AnonymityLevel.unknown }); // check this later whether equivalent
+                        proxyList.push({ ipAddress: ipPort[0], port: Number(ipPort[1]), protocols: [protocol], source: this.source, anonymityLevel: AnonymityLevel.unknown }); // check this later whether equivalent
                     }
                 }
                 else

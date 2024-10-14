@@ -3,7 +3,7 @@ enum Protocol { http = "http", https = "https", socks4 = "socks4", socks5 = "soc
 
 enum AnonymityLevel { transparent = "transparent", anonymous = "anonymous", elite = "elite", unknown = "unknown" };
 
-type Proxy = { ip: string, port: string, protocols: Protocol[], sourceSite: string, anonymityLevel?: AnonymityLevel, lastTested?: string, country?: string, city?: string, isp?: string, speed?: string, uptime?: string, responseTime?: string, verified?: string, };
+type Proxy = { ipAddress: string, port: number, protocols: Protocol[], source: string, anonymityLevel?: AnonymityLevel, lastTested?: string, country?: string, city?: string, isp?: string, speed?: string, uptime?: string, responseTime?: string, verified?: string, };
 
 type ProxyList = { dateTime: number, list: Proxy[] };
 

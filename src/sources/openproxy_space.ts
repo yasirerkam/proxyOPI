@@ -5,7 +5,7 @@ import PageOpenproxySpace from "./pages/pageOpenproxySpace.js";
 
 export default class OpenproxySpace implements ISource {
 
-    readonly sourceSite = "openproxy.space";
+    readonly source = "openproxy.space";
 
     constructor(public browser: Browser, private browserContextOptions?: any) { }
 
@@ -23,7 +23,7 @@ export default class OpenproxySpace implements ISource {
             try {
                 const context = await this.browser.newContext(this.browserContextOptions);
                 context.setDefaultNavigationTimeout(60000);
-                const pageFreeProxyCz = await PageOpenproxySpace.constructAsync(context, url[0], this.sourceSite, protocol);
+                const pageFreeProxyCz = await PageOpenproxySpace.constructAsync(context, url[0], this.source, protocol);
                 await pageFreeProxyCz?.getProxies().then(proxies => {
                     proxyList.push(...proxies);
                 });

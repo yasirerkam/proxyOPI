@@ -4,7 +4,7 @@ import ISource from "./iSource.js";
 
 export default class HideIpMe implements ISource {
 
-    readonly sourceSite: string = "hideip.me";
+    readonly source: string = "hideip.me";
     readonly urls = [
         ["https://raw.githubusercontent.com/zloi-user/hideip.me/main/http.txt", Protocol.http],
         ["https://raw.githubusercontent.com/zloi-user/hideip.me/main/https.txt", Protocol.https],
@@ -29,7 +29,7 @@ export default class HideIpMe implements ISource {
                     const proxies = (await response.text()).split("\n");
                     for (let i = 0; i < proxies.length; i++) {
                         const proxy = proxies[i].split(":");
-                        proxyList.push({ ip: proxy[0]?.trim(), port: proxy[1]?.trim(), protocols: [url[1] as Protocol], sourceSite: this.sourceSite, anonymityLevel: AnonymityLevel.unknown, country: proxy[2]?.trim() });
+                        proxyList.push({ ipAddress: proxy[0]?.trim(), port: Number(proxy[1]?.trim()), protocols: [url[1] as Protocol], source: this.source, anonymityLevel: AnonymityLevel.unknown, country: proxy[2]?.trim() });
                     }
                 }
                 else

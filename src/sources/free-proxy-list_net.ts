@@ -12,7 +12,7 @@ export default class FreeProxyListNet implements ISource {
         'https://www.sslproxies.org/',
         'https://free-proxy-list.net/anonymous-proxy.html',
     ];
-    readonly sourceSite = "free-proxy-list.net";
+    readonly source = "free-proxy-list.net";
 
     constructor(public browser: Browser, private browserContextOptions?: any) { }
 
@@ -23,7 +23,7 @@ export default class FreeProxyListNet implements ISource {
         for (const url of this.urls) {
             const promise = this.browser.newContext(this.browserContextOptions).then(async context => {
                 context.setDefaultNavigationTimeout(60000);
-                await PageFreeProxyListNet.constructAsync(context, url, this.sourceSite).then(async pageFreeProxyListNet => {
+                await PageFreeProxyListNet.constructAsync(context, url, this.source).then(async pageFreeProxyListNet => {
                     await pageFreeProxyListNet?.getProxies().then(proxies => {
                         proxyList.push(...proxies);
                     });
