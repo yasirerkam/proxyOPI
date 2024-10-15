@@ -15,6 +15,7 @@ import ProxyDailyCom from "./sources/proxy-daily_com.js";
 import HideIpMe from "./sources/hideip_me.js";
 import ProxyNovaCom from "./sources/proxynova_com.js";
 import ProxyScrapeCom from "./sources/proxyscrape_com.js";
+import PathLb from "path";
 
 
 export default class SourceManager {
@@ -25,7 +26,8 @@ export default class SourceManager {
 
     private constructor() {
         try {
-            this.browserContextOptions = JsonFileOps.readJson("data/browserContextOptions.json");
+            const path = PathLb.join("..", "data", "browserContextOptions.json");
+            this.browserContextOptions = JsonFileOps.readJson(path);
         } catch (err) {
             console.log("\nError in reading browserContextOptions.json:\n", err);
             this.browserContextOptions = undefined;
