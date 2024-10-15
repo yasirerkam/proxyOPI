@@ -31,15 +31,15 @@ export default class ProxyProvider {
             this.writeProxyListObjFile();
     }
     async getProxyListAsync(timeout: number = 4 * 60): Promise<ProxyListTS> {
-        if (this.proxyListTS === undefined || this.proxyListTS === null) {
+        if (!this.proxyListTS) {
             console.log("\nProxy list value is undefined or null.");
             return await this.getNewProxyListAsync();
         }
-        else if (this.proxyListTS.dateTime === undefined || this.proxyListTS.dateTime === null) {
+        else if (!this.proxyListTS.dateTime) {
             console.log("\nProxy list dateTime value is undefined or null.");
             return await this.getNewProxyListAsync();
         }
-        else if (this.proxyListTS.list === undefined || this.proxyListTS.list === null || this.proxyListTS.list.length === 0) {
+        else if (!this.proxyListTS.list || this.proxyListTS.list.length == 0) {
             console.log("\nProxy list value is undefined, null or empty.");
             return await this.getNewProxyListAsync();
         }
@@ -70,7 +70,7 @@ export default class ProxyProvider {
         console.log("pathProxyListParsed is set.");
     }
     getPathProxyListParsed(): path.ParsedPath {
-        if (this.pathProxyListParsed === null || this.pathProxyListParsed === undefined)
+        if (!this.pathProxyListParsed)
             this.pathProxyListParsed = path.parse(this.pathProxyList);
 
         return this.pathProxyListParsed;
@@ -86,7 +86,7 @@ export default class ProxyProvider {
     }
 
     static async getInstanceAsync(pathProxyList: string): Promise<ProxyProvider> {
-        if (this.instance === undefined || this.instance === null) {
+        if (!this.instance) {
             this.instance = new ProxyProvider(pathProxyList);
 
             await SourceManager.getInstanceAsync().then(async sourceManager => {
@@ -121,7 +121,7 @@ export default class ProxyProvider {
                 await this.getNewProxyListAsync();
 
             const proxyListTS = JsonFileOps.readJson(this.pathProxyList);
-            if (proxyListTS === undefined || proxyListTS === null || proxyListTS.dateTime === undefined || proxyListTS.dateTime === null || proxyListTS.list === undefined || proxyListTS.list === null || proxyListTS.list.length === 0)
+            if (!proxyListTS || !proxyListTS.dateTime || !proxyListTS.list || proxyListTS.list.length == 0)
                 await this.getNewProxyListAsync();
             else
                 this.setProxyList(proxyListTS, false);
