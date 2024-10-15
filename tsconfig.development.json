@@ -13,7 +13,7 @@
     },
     "include": [
         "./src/**/*.ts",
-        "./__tests__/**/*.ts"
+        "./__tests__/**/*.ts",
     ], // Specify the files to include for compilation
     "exclude": [
         "./node_modules",

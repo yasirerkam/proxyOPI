@@ -7,13 +7,13 @@
         "sourceMap": false, // Enable sourcemaps for debugging
         "paths": {
             "*": [
-                "./node_modules/*"
+                "./node_modules/*",
             ] // Allow importing modules from the node_modules directory
         },
     },
     "include": [
         "./src/**/*.ts",
-        "./__tests__/**/*.ts"
+        "./__tests__/**/*.ts",
     ], // Specify the files to include for compilation
     "exclude": [
         "./node_modules",
