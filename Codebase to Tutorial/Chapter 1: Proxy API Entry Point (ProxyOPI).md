@@ -135,7 +135,7 @@ In this chapter, you've learned that `ProxyOPI` is the main entry point for inte
 
 Now that you understand `ProxyOPI`'s role, you're ready to dive deeper into how it manages to get those proxies for you!
 
-[Next Chapter: Proxy List Manager (ProxyProvider)](02_proxy_list_manager__proxyprovider__.md)
+[Next Chapter: Proxy List Manager (ProxyProvider)](https://github.com/yasirerkam/proxyOPI/blob/yasirerkam-CodebasetoTutorial/Codebase%20to%20Tutorial/Chapter%202%3A%20Proxy%20List%20Manager%20(ProxyProvider).md)
 
 ---
 

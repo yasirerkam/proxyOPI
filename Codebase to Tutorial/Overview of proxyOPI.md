@@ -37,19 +37,18 @@ flowchart TD
 ## Chapters
 
 1. [Proxy API Entry Point (ProxyOPI)
-](01_proxy_api_entry_point__proxyopi__.md)
+](https://github.com/yasirerkam/proxyOPI/blob/main/Codebase%20to%20Tutorial/Chapter%201%3A%20Proxy%20API%20Entry%20Point%20(ProxyOPI).md)
 2. [Proxy List Manager (ProxyProvider)
-](02_proxy_list_manager__proxyprovider__.md)
+](https://github.com/yasirerkam/proxyOPI/blob/yasirerkam-CodebasetoTutorial/Codebase%20to%20Tutorial/Chapter%202%3A%20Proxy%20List%20Manager%20(ProxyProvider).md)
 3. [Proxy Data Models (Proxy, ProxyListTS, Protocol, AnonymityLevel)
-](03_proxy_data_models__proxy__proxylistts__protocol__anonymitylevel__.md)
-4. [External Proxy Gatherer (SourceManager)
-](04_external_proxy_gatherer__sourcemanager__.md)
+](https://github.com/yasirerkam/proxyOPI/blob/yasirerkam-CodebasetoTutorial/Codebase%20to%20Tutorial/Chapter%203%3A%20Proxy%20Data%20Models%20(Proxy%2C%20ProxyListTS%2C%20Protocol%2C%20AnonymityLevel).md)
+4. [External Proxy Gatherer (SourceManager)](https://github.com/yasirerkam/proxyOPI/blob/yasirerkam-CodebasetoTutorial/Codebase%20to%20Tutorial/Chapter%204%3A%20External%20Proxy%20Gatherer%20(SourceManager).md)
 5. [Individual Proxy Source Scraper (ISource)
-](05_individual_proxy_source_scraper__isource__.md)
+](https://github.com/yasirerkam/proxyOPI/blob/yasirerkam-CodebasetoTutorial/Codebase%20to%20Tutorial/Chapter%205%3A%20Individual%20Proxy%20Source%20Scraper%20(ISource).md)
 6. [Web Page Scraper Logic (IPage)
-](06_web_page_scraper_logic__ipage__.md)
+](https://github.com/yasirerkam/proxyOPI/blob/yasirerkam-CodebasetoTutorial/Codebase%20to%20Tutorial/Chapter%206%3A%20Web%20Page%20Scraper%20Logic%20(IPage).md)
 7. [JSON File Handler (JsonFileOps)
-](07_json_file_handler__jsonfileops__.md)
+](https://github.com/yasirerkam/proxyOPI/blob/yasirerkam-CodebasetoTutorial/Codebase%20to%20Tutorial/Chapter%207%3A%20JSON%20File%20Handler%20(JsonFileOps).md)
 
 ---
 
